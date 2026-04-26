@@ -508,6 +508,10 @@ th {
   box-shadow: 0 14px 34px rgba(13, 111, 255, 0.34);
 }
 
+.cta-mobile {
+  display: none;
+}
+
 .secondary-button,
 .nav-button {
   background: rgba(255, 255, 255, 0.04);
@@ -1494,6 +1498,14 @@ td strong {
     min-height: 48px;
   }
 
+  .cta-desktop {
+    display: none;
+  }
+
+  .cta-mobile {
+    display: inline;
+  }
+
   .hero {
     gap: 16px;
     margin-bottom: 56px;
@@ -1520,8 +1532,7 @@ td strong {
   }
 
   .hero-metrics {
-    gap: 12px;
-    margin-top: 26px;
+    display: none;
   }
 
   .hero-metrics article {
@@ -1534,6 +1545,11 @@ td strong {
 
   .hero-panel {
     gap: 14px;
+  }
+
+  .hero-panel-grid,
+  .pillars {
+    display: none;
   }
 
   .hero-product-card {
