@@ -1353,6 +1353,7 @@ function renderResults() {
     .join("");
 
   elements.resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  resetSimulation({ preserveResults: true, scrollToSimulator: false });
 }
 
 function goToNext() {
@@ -1383,16 +1384,22 @@ function goToPrevious() {
   renderQuestion();
 }
 
-function resetSimulation() {
+function resetSimulation(options = {}) {
+  const { preserveResults = false, scrollToSimulator = true } = options;
+
   clearTimeout(state.loadingTimer);
   state.isCalculating = false;
   state.loadingTimer = null;
   state.currentStep = 0;
   state.answers = {};
-  elements.resultsSection.classList.add("hidden");
+  if (!preserveResults) {
+    elements.resultsSection.classList.add("hidden");
+  }
   updateProfileCard();
   renderQuestion();
-  document.getElementById("simulador").scrollIntoView({ behavior: "smooth", block: "start" });
+  if (scrollToSimulator) {
+    document.getElementById("simulador").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 elements.nextButton.addEventListener("click", goToNext);
