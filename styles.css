@@ -1498,6 +1498,10 @@ td strong {
     min-height: 48px;
   }
 
+  .top-nav-link {
+    display: none;
+  }
+
   .cta-desktop {
     display: none;
   }
@@ -1509,6 +1513,32 @@ td strong {
   .hero {
     gap: 16px;
     margin-bottom: 56px;
+  }
+
+  .site-header,
+  .hero-copy,
+  .hero-panel,
+  .section-heading,
+  .simulator-card,
+  .profile-card,
+  .result-panel,
+  .insight-card,
+  .closing-copy {
+    text-align: center;
+  }
+
+  .brand-lockup,
+  .brand-lockup > div,
+  .hero-actions,
+  .simulator-actions,
+  .closing-actions {
+    align-items: center;
+  }
+
+  .progress-copy,
+  .panel-header,
+  .chart-labels {
+    text-align: center;
   }
 
   .hero h1 {
@@ -1595,6 +1625,8 @@ td strong {
   .progress-copy {
     flex-direction: row;
     align-items: center;
+    justify-content: center;
+    gap: 18px;
     font-size: 0.84rem;
   }
 
@@ -1609,10 +1641,41 @@ td strong {
     line-height: 1.72;
   }
 
+  .options-grid {
+    gap: 12px;
+  }
+
+  .option-card {
+    padding: 16px 16px 15px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .option-card strong {
+    font-size: 0.95rem;
+  }
+
+  .option-description {
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .option-score {
+    font-size: 0.72rem;
+  }
+
   .simulator-actions {
     width: 100%;
     gap: 10px;
     margin-top: 14px;
+  }
+
+  #nextButton {
+    order: 1;
+  }
+
+  #prevButton {
+    order: 2;
   }
 
   .profile-top h3 {
@@ -1625,7 +1688,7 @@ td strong {
 
   .panel-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     margin-bottom: 18px;
   }
@@ -1645,7 +1708,7 @@ td strong {
 
   .chart-labels strong {
     font-size: 0.88rem;
-    text-align: right;
+    text-align: center;
   }
 
   .impact-matrix {

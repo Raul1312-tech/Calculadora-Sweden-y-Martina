@@ -11,25 +11,25 @@ const questions = [
       {
         value: "metro",
         label: "Madrid o Barcelona",
-        description: "Clínicas situadas en las dos grandes áreas metropolitanas principales de España.",
+        description: "Las dos grandes áreas metropolitanas principales.",
         scoreLabel: "Tier 1",
       },
       {
         value: "capital",
         label: "Capital de provincia relevante",
-        description: "Capitales como Valencia, Sevilla, Málaga, Zaragoza, Bilbao o Alicante, con alto peso urbano y provincial.",
+        description: "Valencia, Sevilla, Málaga, Zaragoza, Bilbao o Alicante.",
         scoreLabel: "Tier 2",
       },
       {
         value: "city",
         label: "Ciudad mediana",
-        description: "Ciudades intermedias como Vigo, Santander, Valladolid, A Coruña o similares, normalmente entre 100.000 y 450.000 habitantes.",
+        description: "Vigo, Santander, Valladolid, A Coruña o similares.",
         scoreLabel: "Tier 3",
       },
       {
         value: "rural",
         label: "Población pequeña o entorno rural",
-        description: "Municipios pequeños, cabeceras de comarca o zonas rurales con menor densidad de población y radio local.",
+        description: "Municipios pequeños, cabeceras de comarca o zonas rurales.",
         scoreLabel: "Tier 4",
       },
     ],
@@ -551,6 +551,7 @@ const elements = {
   comparisonChart: document.getElementById("comparisonChart"),
   resultsTable: document.getElementById("resultsTable"),
   resetButton: document.getElementById("resetButton"),
+  restartScenarioLink: document.getElementById("restartScenarioLink"),
   primaryInsightTitle: document.getElementById("primaryInsightTitle"),
   primaryInsightBody: document.getElementById("primaryInsightBody"),
   insightList: document.getElementById("insightList"),
@@ -1397,6 +1398,10 @@ function resetSimulation() {
 elements.nextButton.addEventListener("click", goToNext);
 elements.prevButton.addEventListener("click", goToPrevious);
 elements.resetButton.addEventListener("click", resetSimulation);
+elements.restartScenarioLink?.addEventListener("click", (event) => {
+  event.preventDefault();
+  resetSimulation();
+});
 
 renderQuestion();
 updateProfileCard();
