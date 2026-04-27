@@ -1106,7 +1106,7 @@ function buildInsights(currentScenario, optimizedScenario) {
 
   const incrementalImplants = optimizedScenario.implants - currentScenario.implants;
   insights.push(
-    `En escenario optimizado, el partner podría activar aproximadamente ${formatNumber(incrementalImplants)} implantes mensuales adicionales con la misma base clínica.`
+    `En escenario optimizado, el partner podría activar aproximadamente ${formatNumber(incrementalImplants)} implantes adicionales al mes con la misma base clínica.`
   );
 
   return { title, body, insights: insights.slice(0, 4) };
@@ -1125,24 +1125,24 @@ function renderResults() {
 
   elements.kpiCards.innerHTML = `
     <article class="kpi-card">
-      <p class="mini-label">Pacientes extra cerrados</p>
+      <p class="mini-label">Pacientes extra cerrados al mes</p>
       <strong>${formatNumber(currentScenario.closedPatients)}</strong>
       <span>Proyección mensual realista de pacientes extra captados y cerrados con una campaña tipo de Climadent.</span>
     </article>
     <article class="kpi-card">
-      <p class="mini-label">Implantes extra proyectados</p>
+      <p class="mini-label">Implantes extra proyectados al mes</p>
       <strong>${formatNumber(currentScenario.implants)}</strong>
       <span>Volumen mensual realista de implantes extra asociado a ese escenario de campaña y conversión.</span>
     </article>
     <article class="kpi-card">
-      <p class="mini-label">Ingresos extra proyectados</p>
+      <p class="mini-label">Ingresos extra proyectados al mes</p>
       <strong>${formatCurrency(currentScenario.revenue)}</strong>
       <span>Producción mensual extra estimada de forma realista con ticket medio constante.</span>
     </article>
     <article class="kpi-card">
-      <p class="mini-label">Coste por primera visita</p>
+      <p class="mini-label">Coste por primera visita al mes</p>
       <strong>${formatCurrency(currentScenario.costPerVisit)}</strong>
-      <span>Coste medio estimado por cada primera visita generada con una campaña tipo.</span>
+      <span>Coste medio estimado por cada primera visita generada en un mes de campaña tipo.</span>
     </article>
   `;
 
