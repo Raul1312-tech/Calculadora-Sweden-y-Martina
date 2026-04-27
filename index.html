@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sweden & Martina | Calculadora de Potencial de Clínica</title>
     <meta
+      id="pageDescription"
       name="description"
       content="Landing interactiva para estimar el potencial de rentabilidad, captación y consumo de implantes de clínicas dentales para partners de Sweden & Martina."
     />
@@ -22,10 +23,10 @@
       <header class="site-header">
         <div class="brand-lockup" aria-label="Sweden & Martina">
           <div>
-            <img class="brand-logo" src="./Logo SyM.svg" alt="Sweden &amp; Martina" />
-            <p class="brand-subtitle">Partner Opportunity Calculator</p>
+            <img class="brand-logo" src="./Logo SyM.svg" alt="Sweden & Martina" />
+            <p class="brand-subtitle" id="brandSubtitle">Partner Opportunity Calculator</p>
             <div class="brand-collab" aria-label="Colaboración con Climadent">
-              <span>En colaboración con</span>
+              <span id="brandCollabLabel">Desarrollado por</span>
               <img
                 class="brand-collab-logo"
                 src="./LOGO_color_horiz_transparent (1).png"
@@ -34,28 +35,44 @@
             </div>
           </div>
         </div>
-        <nav class="top-nav" aria-label="Principal">
-          <a class="top-nav-link" href="#metodo">Metodología</a>
-          <a class="top-nav-link" href="#results">Resultados</a>
-          <a class="ghost-link" href="#simulador">Iniciar simulación</a>
-        </nav>
+
+        <div class="header-actions">
+          <div class="language-switcher" aria-label="Selector de idioma">
+            <button class="language-button is-active" type="button" data-lang="es">
+              <span class="flag-dot flag-es" aria-hidden="true"></span>
+              <span>Español</span>
+            </button>
+            <button class="language-button" type="button" data-lang="en">
+              <span class="flag-dot flag-en" aria-hidden="true"></span>
+              <span>English</span>
+            </button>
+            <button class="language-button" type="button" data-lang="it">
+              <span class="flag-dot flag-it" aria-hidden="true"></span>
+              <span>Italiano</span>
+            </button>
+          </div>
+
+          <nav class="top-nav" aria-label="Principal">
+            <a class="ghost-link" href="#simulador" id="navStartSimulation">Iniciar simulación</a>
+          </nav>
+        </div>
       </header>
 
       <main>
         <section class="hero">
           <div class="hero-copy">
-            <p class="eyebrow">Herramienta de venta consultiva para partner</p>
-            <h1>
+            <p class="eyebrow" id="heroEyebrow">Herramienta de venta consultiva para partner</p>
+            <h1 id="heroTitle">
               Descubre como puede aumentarse hasta un 50% el volumen de pacientes de implantes
-              <span>Sweden &amp; Martina, en cualquier clínica dental</span>
+              <span>Sweden & Martina, en cualquier clínica dental</span>
             </h1>
-            <p class="hero-text">
-              Simula la estructura real de una clínica, detecta sus cuellos de botella y traduce
-              esa realidad en pacientes, producción e implantes potenciales. Pensado para ayudar al
+            <p class="hero-text" id="heroText">
+              Simula la estructura real de una clínica, detecta sus cuellos de botella y traduce esa
+              realidad en pacientes, producción e implantes potenciales. Pensado para ayudar al
               partner a priorizar oportunidades y argumentar valor con números.
             </p>
             <div class="hero-signature" aria-label="Motor desarrollado por Climadent">
-              <span class="hero-signature-label">Motor desarrollado por</span>
+              <span class="hero-signature-label" id="heroSignatureLabel">Motor desarrollado por</span>
               <img
                 class="hero-signature-logo"
                 src="./LOGO_color_horiz_transparent (1).png"
@@ -64,23 +81,25 @@
             </div>
             <div class="hero-actions">
               <a class="primary-button" href="#simulador">
-                <span class="cta-desktop">Jugar con escenarios</span>
-                <span class="cta-mobile">Calcular potencial de cualquier clínica dental con Climadent</span>
+                <span class="cta-desktop" id="heroPrimaryCtaDesktop">Jugar con escenarios</span>
+                <span class="cta-mobile" id="heroPrimaryCtaMobile"
+                  >Calcular potencial de cualquier clínica dental con Climadent</span
+                >
               </a>
-              <a class="secondary-button" href="#metodo">Ver metodología</a>
+              <a class="secondary-button" href="#metodo" id="heroSecondaryCta">Ver metodología</a>
             </div>
             <div class="hero-metrics">
               <article>
                 <strong>10</strong>
-                <span>variables de negocio dental</span>
+                <span id="heroMetricOne">variables de negocio dental</span>
               </article>
               <article>
                 <strong>5</strong>
-                <span>fases del embudo interpretables</span>
+                <span id="heroMetricTwo">fases del embudo interpretables</span>
               </article>
               <article>
                 <strong>2</strong>
-                <span>escenarios comparados: actual y optimizado</span>
+                <span id="heroMetricThree">escenarios comparados: actual y optimizado</span>
               </article>
             </div>
           </div>
@@ -89,29 +108,29 @@
             <div class="hero-panel-card hero-product-card">
               <div class="product-metal"></div>
               <div class="product-copy">
-                <p class="mini-label">Opportunity Engine</p>
-                <h2>Rentabilidad clínica, cierre y consumo de implantes</h2>
-                <p>
+                <p class="mini-label" id="productMiniLabel">Opportunity Engine</p>
+                <h2 id="productTitle">Rentabilidad clínica, cierre y consumo de implantes</h2>
+                <p id="productBody">
                   Un modelo interno para traducir estructura, marketing y conversión clínica en una
-                  lectura comercial clara para Sweden &amp; Martina.
+                  lectura comercial clara para Sweden & Martina.
                 </p>
               </div>
             </div>
             <div class="hero-panel-grid">
               <div class="hero-panel-card glass-card">
-                <p class="mini-label">Qué calcula</p>
+                <p class="mini-label" id="heroPanelCalcLabel">Qué calcula</p>
                 <ul class="panel-list">
-                  <li>Potencial de captación mensual</li>
-                  <li>Capacidad de primeras visitas</li>
-                  <li>Conversión clínica estimada</li>
-                  <li>Consumo incremental de implantes</li>
+                  <li id="heroPanelCalcItemOne">Potencial de captación mensual</li>
+                  <li id="heroPanelCalcItemTwo">Capacidad de primeras visitas</li>
+                  <li id="heroPanelCalcItemThree">Conversión clínica estimada</li>
+                  <li id="heroPanelCalcItemFour">Consumo incremental de implantes</li>
                 </ul>
               </div>
               <div class="hero-panel-card accent-card">
-                <p class="mini-label">Para quién está pensado</p>
-                <p>
-                  Delegados, distribuidores y partners que necesitan ordenar qué clínicas tienen
-                  más recorrido y cómo argumentar esa oportunidad con números.
+                <p class="mini-label" id="heroAudienceLabel">Para quién está pensado</p>
+                <p id="heroAudienceBody">
+                  Delegados, distribuidores y partners que necesitan ordenar qué clínicas tienen más
+                  recorrido y cómo argumentar esa oportunidad con números.
                 </p>
               </div>
             </div>
@@ -121,24 +140,24 @@
         <section class="pillars" id="metodo">
           <article class="pillar-card">
             <p class="mini-label">01</p>
-            <h2>No es una calculadora genérica</h2>
-            <p>
+            <h2 id="pillarOneTitle">No es una calculadora genérica</h2>
+            <p id="pillarOneBody">
               Traduce señales reales del negocio dental a un modelo de rentabilidad y consumo de
               implantes.
             </p>
           </article>
           <article class="pillar-card">
             <p class="mini-label">02</p>
-            <h2>Explica por qué sucede</h2>
-            <p>
+            <h2 id="pillarTwoTitle">Explica por qué sucede</h2>
+            <p id="pillarTwoBody">
               Cada respuesta solo impacta en su fase real del embudo: captación, contacto,
               agendado, asistencia o cierre.
             </p>
           </article>
           <article class="pillar-card">
             <p class="mini-label">03</p>
-            <h2>Ayuda a vender mejor</h2>
-            <p>
+            <h2 id="pillarThreeTitle">Ayuda a vender mejor</h2>
+            <p id="pillarThreeBody">
               El resultado no es solo un número: es un relato comercial sobre potencial,
               restricciones y mejora estructural.
             </p>
@@ -147,9 +166,12 @@
 
         <section class="simulator-section" id="simulador">
           <div class="section-heading">
-            <p class="eyebrow">Simulador guiado</p>
-            <h2>Calcula el potencial de cualquier clínica dental con el sistema de captación Climadent en un mes con una campaña de implantes</h2>
-            <p>
+            <p class="eyebrow" id="simulatorEyebrow">Simulador guiado</p>
+            <h2 id="simulatorTitle">
+              Calcula el potencial de cualquier clínica dental con el sistema de captación Climadent
+              en un mes con una campaña de implantes
+            </h2>
+            <p id="simulatorBody">
               Cada paso describe una realidad operativa. El motor convierte esas respuestas en una
               proyección mensual utilizable en conversación comercial.
             </p>
@@ -181,7 +203,7 @@
 
             <aside class="profile-card">
               <div class="profile-top">
-                <p class="mini-label">Perfil en construcción</p>
+                <p class="mini-label" id="profileEyebrow">Perfil en construcción</p>
                 <h3 id="profileHeadline">Clínica aún sin definir</h3>
                 <p id="profileSummary">
                   Selecciona las variables clave para ver una lectura ejecutiva del caso.
@@ -220,18 +242,18 @@
 
         <section class="results-section hidden" id="results">
           <div class="section-heading">
-            <p class="eyebrow">Resultado estratégico</p>
-            <h2>Lectura mensual del potencial de la clínica</h2>
-            <p>
-              Un escenario mensual estimado frente a un escenario optimizado si la clínica profesionaliza
-              captación y conversión con apoyo estructurado.
+            <p class="eyebrow" id="resultsEyebrow">Resultado estratégico</p>
+            <h2 id="resultsTitle">Lectura mensual del potencial de la clínica</h2>
+            <p id="resultsBody">
+              Un escenario mensual estimado frente a un escenario optimizado si la clínica
+              profesionaliza captación y conversión con apoyo estructurado.
             </p>
           </div>
 
           <div class="results-hero">
             <div class="kpi-stack" id="kpiCards"></div>
             <div class="insight-card">
-              <p class="mini-label">Lectura comercial</p>
+              <p class="mini-label" id="insightEyebrow">Lectura comercial</p>
               <h3 id="primaryInsightTitle"></h3>
               <p id="primaryInsightBody"></p>
               <div class="insight-list" id="insightList"></div>
@@ -242,10 +264,10 @@
             <article class="result-panel">
               <div class="panel-header">
                 <div>
-                  <p class="mini-label">Embudo estimado</p>
-                  <h3>Conversión por fases</h3>
+                  <p class="mini-label" id="funnelEyebrow">Embudo estimado</p>
+                  <h3 id="funnelTitle">Conversión por fases</h3>
                 </div>
-                <span class="panel-chip">Mensual</span>
+                <span class="panel-chip" id="funnelChip">Mensual</span>
               </div>
               <div class="funnel-chart" id="funnelChart"></div>
             </article>
@@ -253,10 +275,10 @@
             <article class="result-panel">
               <div class="panel-header">
                 <div>
-                  <p class="mini-label">Comparativa</p>
-                  <h3>Actual vs optimizado</h3>
+                  <p class="mini-label" id="comparisonEyebrow">Comparativa</p>
+                  <h3 id="comparisonTitle">Actual vs optimizado</h3>
                 </div>
-                <span class="panel-chip">Potencial incremental</span>
+                <span class="panel-chip" id="comparisonChip">Potencial incremental</span>
               </div>
               <div class="comparison-chart" id="comparisonChart"></div>
             </article>
@@ -265,10 +287,10 @@
           <article class="result-panel impact-panel">
             <div class="panel-header">
               <div>
-                <p class="mini-label">Mapa de impacto</p>
-                <h3>Qué está moviendo este resultado</h3>
+                <p class="mini-label" id="impactEyebrow">Mapa de impacto</p>
+                <h3 id="impactTitle">Qué está moviendo este resultado</h3>
               </div>
-              <span class="panel-chip">Por fases</span>
+              <span class="panel-chip" id="impactChip">Por fases</span>
             </div>
             <div class="impact-matrix" id="impactMatrix"></div>
           </article>
@@ -276,18 +298,19 @@
           <article class="result-panel table-panel">
             <div class="panel-header">
               <div>
-                <p class="mini-label">Detalle de KPIs</p>
-                <h3>Tabla ejecutiva</h3>
+                <p class="mini-label" id="tableEyebrow">Detalle de KPIs</p>
+                <h3 id="tableTitle">Tabla ejecutiva</h3>
               </div>
-              <button class="ghost-button" id="resetButton" type="button">Reiniciar simulación</button>
+              <button class="ghost-button" id="resetButton" type="button">
+                Reiniciar simulación
+              </button>
             </div>
             <div class="table-wrap">
               <table>
                 <thead>
                   <tr>
                     <th>KPI</th>
-                    <th>Escenario actual</th>
-                    <th>Escenario optimizado</th>
+                    <th>Resultados esperables</th>
                     <th>Lectura</th>
                   </tr>
                 </thead>
@@ -298,17 +321,23 @@
 
           <article class="result-panel closing-panel">
             <div class="closing-copy">
-              <p class="mini-label">Próximo paso</p>
-              <h3>Usa este escenario como argumento de conversación, no como dato aislado</h3>
-              <p>
+              <p class="mini-label" id="closingEyebrow">Próximo paso</p>
+              <h3 id="closingTitle">
+                Usa este escenario como argumento de conversación, no como dato aislado
+              </h3>
+              <p id="closingBody">
                 El valor de la herramienta está en detectar qué clínicas tienen más recorrido y qué
                 palancas justifican una intervención estructurada para hacer crecer su consumo de
                 implantes.
               </p>
             </div>
             <div class="closing-actions">
-              <a class="primary-button" id="restartScenarioLink" href="#simulador">Explorar otro escenario</a>
-              <a class="secondary-button" href="#metodo">Revisar metodología</a>
+              <a class="primary-button" id="restartScenarioLink" href="#simulador"
+                >Explorar otro escenario</a
+              >
+              <a class="secondary-button" href="#metodo" id="reviewMethodologyLink"
+                >Revisar metodología</a
+              >
             </div>
           </article>
         </section>

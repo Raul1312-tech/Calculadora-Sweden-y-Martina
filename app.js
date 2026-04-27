@@ -1,452 +1,1204 @@
-const questions = [
-  {
-    id: "location",
-    category: "Entorno",
-    title: "¿Dónde compite la clínica?",
-    helper:
-      "Clasificamos la clínica según el tipo de entorno en el que está ubicada: área metropolitana, capital relevante, ciudad mediana o población pequeña.",
-    impactNote:
-      "Esta clasificación territorial nos ayuda a ubicar la clínica en un tier geográfico real antes de valorar su potencial.",
-    options: [
-      {
-        value: "metro",
-        label: "Madrid o Barcelona",
-        description: "Las dos grandes áreas metropolitanas principales.",
-        scoreLabel: "Tier 1",
+const i18n = {
+  es: {
+    locale: "es-ES",
+    metaTitle: "Sweden & Martina | Calculadora de Potencial de Clínica",
+    metaDescription:
+      "Landing interactiva para estimar el potencial de rentabilidad, captación y consumo de implantes de clínicas dentales para partners de Sweden & Martina.",
+    static: {
+      brandSubtitle: "Partner Opportunity Calculator",
+      brandCollabLabel: "Desarrollado por",
+      navStartSimulation: "Iniciar simulación",
+      heroEyebrow: "Herramienta de venta consultiva para partner",
+      heroTitle:
+        'Descubre como puede aumentarse hasta un 50% el volumen de pacientes de implantes <span>Sweden & Martina, en cualquier clínica dental</span>',
+      heroText:
+        "Simula la estructura real de una clínica, detecta sus cuellos de botella y traduce esa realidad en pacientes, producción e implantes potenciales. Pensado para ayudar al partner a priorizar oportunidades y argumentar valor con números.",
+      heroSignatureLabel: "Motor desarrollado por",
+      heroPrimaryCtaDesktop: "Jugar con escenarios",
+      heroPrimaryCtaMobile: "Calcular potencial de cualquier clínica dental con Climadent",
+      heroSecondaryCta: "Ver metodología",
+      heroMetricOne: "variables de negocio dental",
+      heroMetricTwo: "fases del embudo interpretables",
+      heroMetricThree: "escenarios comparados: actual y con campaña",
+      productMiniLabel: "Motor de oportunidad",
+      productTitle: "Rentabilidad clínica, cierre y consumo de implantes",
+      productBody:
+        "Un modelo interno para traducir estructura, marketing y conversión clínica en una lectura comercial clara para Sweden & Martina.",
+      heroPanelCalcLabel: "Qué calcula",
+      heroPanelCalcItemOne: "Potencial de captación mensual",
+      heroPanelCalcItemTwo: "Capacidad de primeras visitas",
+      heroPanelCalcItemThree: "Conversión clínica estimada",
+      heroPanelCalcItemFour: "Consumo incremental de implantes",
+      heroAudienceLabel: "Para quién está pensado",
+      heroAudienceBody:
+        "Delegados, distribuidores y partners que necesitan ordenar qué clínicas tienen más recorrido y cómo argumentar esa oportunidad con números.",
+      pillarOneTitle: "No es una calculadora genérica",
+      pillarOneBody:
+        "Traduce señales reales del negocio dental a un modelo de rentabilidad y consumo de implantes.",
+      pillarTwoTitle: "Explica por qué sucede",
+      pillarTwoBody:
+        "Cada respuesta solo impacta en su fase real del embudo: captación, contacto, agendado, asistencia o cierre.",
+      pillarThreeTitle: "Ayuda a vender mejor",
+      pillarThreeBody:
+        "El resultado no es solo un número: es un relato comercial sobre potencial, restricciones y mejora estructural.",
+      simulatorEyebrow: "Simulador guiado",
+      simulatorTitle:
+        "Calcula el potencial de cualquier clínica dental con el sistema de captación Climadent en un mes con una campaña de implantes",
+      simulatorBody:
+        "Cada paso describe una realidad operativa. El motor convierte esas respuestas en una proyección mensual utilizable en conversación comercial.",
+      profileEyebrow: "Perfil en construcción",
+      resultsEyebrow: "Resultado estratégico",
+      resultsTitle: "Lectura mensual del potencial de la clínica",
+      resultsBody:
+        "Una comparación entre la situación actual de la clínica y el escenario realista al que podría llegar en un mes con una campaña activa de Climadent.",
+      insightEyebrow: "Lectura comercial",
+      funnelEyebrow: "Embudo estimado",
+      funnelTitle: "Conversión por fases",
+      funnelChip: "Mensual",
+      comparisonEyebrow: "Comparativa",
+      comparisonTitle: "Actual vs con campaña",
+      comparisonChip: "Salto realista",
+      impactEyebrow: "Mapa de impacto",
+      impactTitle: "Qué está moviendo este resultado",
+      impactChip: "Por fases",
+      tableEyebrow: "Detalle de KPIs",
+      tableTitle: "Tabla ejecutiva",
+      closingEyebrow: "Próximo paso",
+      closingTitle: "Usa este escenario como argumento de conversación, no como dato aislado",
+      closingBody:
+        "El valor de la herramienta está en detectar qué clínicas tienen más recorrido y qué palancas justifican una intervención estructurada para hacer crecer su consumo de implantes.",
+      reviewMethodologyLink: "Revisar metodología",
+      tableHeaders: ["KPI", "Resultados esperables", "Lectura"],
+      buttons: {
+        reset: "Reiniciar simulación",
+        previous: "Anterior",
+        next: "Siguiente",
+        viewResults: "Ver resultado",
+        restartScenario: "Explorar otro escenario",
+        calculating: "Calculando...",
       },
-      {
-        value: "capital",
-        label: "Capital de provincia relevante",
-        description: "Valencia, Sevilla, Málaga, Zaragoza, Bilbao o Alicante.",
-        scoreLabel: "Tier 2",
+      profile: {
+        defaultHeadline: "Clínica aún sin definir",
+        defaultSummary: "Selecciona las variables clave para ver una lectura ejecutiva del caso.",
+        clinicFallback: "Clínica",
+        structureFallback: "estructura por definir",
+        receptionFallback: "recepción sin definir",
+        digitalFallback: "sin evaluar",
+        protocolFallback: "no evaluado",
+        pendingAnswer: "Sin responder",
+        baselineSummary: "Base actual declarada: {visits} primeras visitas y {implants} implantes al mes.",
+        summaryTemplate:
+          "Caso con {reception}, presencia digital {digital} y protocolo {protocol}.",
       },
-      {
-        value: "city",
-        label: "Ciudad mediana",
-        description: "Vigo, Santander, Valladolid, A Coruña o similares.",
-        scoreLabel: "Tier 3",
+      loading: {
+        stepLabel: "Paso {current} de {total}",
+        category: "Calculando",
+        miniLabel: "Procesando escenario",
+        title: "Calculando la proyección de la clínica",
+        helper:
+          "Estamos cruzando captación, contacto, asistencia y cierre para estimar un escenario realista con una campaña tipo de Climadent.",
+        impactLabel: "Lectura en curso",
       },
-      {
-        value: "rural",
-        label: "Población pequeña o entorno rural",
-        description: "Municipios pequeños, cabeceras de comarca o zonas rurales.",
-        scoreLabel: "Tier 4",
+      questionUi: {
+        impactLabel: "Qué cambia aquí",
       },
-    ],
+      diagnostics: {
+        contact: "contacto",
+        appointments: "agendado",
+        attendance: "asistencia",
+        close: "cierre",
+      },
+      insights: {
+        title: "La mayor fuga está en {phase}",
+        body:
+          "Con la configuración actual, la clínica está desaprovechando una parte relevante del valor generado antes de llegar a tratamiento. El mayor salto potencial aparece al reforzar {lift}.",
+        scoreLabel: "Nivel de optimización",
+        scoreCaption:
+          "Puntuación estimada sobre cuánto de estructurada está la clínica para convertir demanda en pacientes de implantes de forma consistente.",
+        earlyLeak:
+          "Recepción y velocidad de contacto apuntan a una pérdida temprana de oportunidades antes incluso del agendado.",
+        closeOpportunity:
+          "La clínica parece tener más recorrido en cierre que en volumen: profesionalizar primera visita y cierre puede multiplicar mejor el tráfico actual.",
+        weakDigital:
+          "La autoridad digital débil añade fricción tanto al contacto como a la asistencia; la clínica no convierte con toda la confianza que podría.",
+        tacFinance:
+          "El diagnóstico y la financiación están limitando la aceptación del tratamiento, especialmente en implantología de ticket alto.",
+        generic:
+          "La estructura general es razonable, pero todavía existe margen claro para traducir mejor la demanda en visitas realizadas y cierres.",
+        implantsLift:
+          "Si además la clínica optimizara al máximo su estructura, el partner podría activar aproximadamente {value} implantes adicionales al mes con la misma base clínica.",
+        cards: {
+          contactTitle: "Refuerzo de contacto y recepción",
+          contactBody:
+            "La prioridad es reducir fuga en las primeras horas. Una recepción enfocada, guiones claros y seguimiento inmediato suelen mover el embudo antes que cualquier cambio publicitario.",
+          closeTitle: "Protocolo de visita y cierre",
+          closeBody:
+            "La clínica ya genera interés, pero necesita una primera visita más guiada: diagnóstico más claro, más autoridad en la propuesta y un camino de decisión más simple para el paciente.",
+          trustTitle: "Marca y confianza previa",
+          trustBody:
+            "Antes de acudir, el paciente necesita más seguridad. Una presencia digital más sólida y una experiencia de entrada más clara ayudan a que el tráfico no se enfríe entre lead y visita.",
+          financeTitle: "Financiación y accesibilidad",
+          financeBody:
+            "Cuando la financiación no forma parte real de la venta, se pierde aceptación incluso con casos bien indicados. Integrarla mejor suele elevar la conversión sin exigir más inversión.",
+          operationsTitle: "Capacidad operativa y consistencia",
+          operationsBody:
+            "La oportunidad no está solo en captar más, sino en sostener mejor el flujo. Ordenar agenda, recepción y seguimiento permite crecer con menos fricción y más previsibilidad.",
+          impactTitle: "Impacto potencial mensual",
+          impactBody:
+            "Si además la clínica optimizara al máximo sus procesos internos, todavía podría capturar más valor con la misma campaña y convertir una mayor parte del interés actual en tratamientos cerrados.",
+          impactTail: "Eso abriría un margen aproximado de {implants} implantes extra y {revenue} de facturación mensual adicional.",
+        },
+      },
+      results: {
+        kpis: {
+          patientsTitle: "Pacientes de implantes extra cerrados al mes",
+          patientsBody:
+            "Proyección mensual realista de pacientes extra captados y cerrados con una campaña tipo de Climadent.",
+          implantsTitle: "Implantes extra proyectados al mes",
+          implantsBody:
+            "Volumen mensual realista de implantes extra asociado a ese escenario de campaña y conversión.",
+          revenueTitle: "Facturación implantológica extra al mes",
+          revenueBody: "Producción mensual extra estimada de forma realista con ticket medio constante.",
+          costTitle: "ROI de campaña de implantes",
+          costBody: "Retorno estimado de una campaña de implantes con una inversión mensual de 450 € en Meta.",
+        },
+        funnel: {
+          leads: "Leads estimados para implantes",
+          contacted: "Leads contactados de implantes",
+          appointments: "Citas agendadas para implantes",
+          visits: "Primeras visitas de implantes al mes de la clínica",
+          closed: "Pacientes cerrados de implantes de la clínica",
+        },
+        comparison: {
+          leads: "Leads estimados",
+          contact: "% contacto",
+          appointment: "% cita / contacto",
+          attendance: "% asistencia",
+          close: "% cierre / visita",
+        },
+        table: {
+          budget: "Inversión mensual de campaña",
+          budgetNote: "En esta versión trabajamos con una inversión fija de 450 € al mes en Meta.",
+          cpl: "CPL estimado",
+          cplNote: "Presión competitiva {competition} según entorno.",
+          contact: "% contacto",
+          contactNote: "Impactado por velocidad de contacto, recepción y autoridad digital.",
+          appointment: "% cita/contacto",
+          appointmentNote: "La fricción de primera visita y el equipo de recepción mueven esta fase.",
+          attendance: "% asistencia",
+          attendanceNote: "La marca y la facilidad de entrada sostienen la asistencia real.",
+          close: "% cierre/visita",
+          closeNote: "Diagnóstico, financiación, asesor y protocolo explican la diferencia.",
+          patients: "Pacientes cerrados extra de implantes",
+          patientsNote: "Conversión clínica mensual estimada en valoración implantológica.",
+          implants: "Implantes mensuales extra colocados por la clínica",
+          implantsNote: "KPI directo de valor para Sweden & Martina.",
+          revenue: "Facturación extra en implantología",
+          revenueNote: "Facturación estimada asociada a implantología sobre el ticket medio indicado.",
+          cac: "CAC por paciente",
+          cacNote: "Coste de adquisición estimado según el rendimiento del embudo.",
+        },
+        competition: {
+          high: "alta",
+          mediumHigh: "media-alta",
+          medium: "media",
+          low: "baja",
+        },
+      },
+      questions: {
+        location: {
+          category: "Entorno",
+          title: "¿Dónde compite la clínica?",
+          helper:
+            "Clasificamos la clínica según el tipo de entorno en el que está ubicada: área metropolitana, capital relevante, ciudad mediana o población pequeña.",
+          impactNote:
+            "Esta clasificación territorial nos ayuda a ubicar la clínica en un tier geográfico real antes de valorar su potencial.",
+          options: [
+            {
+              label: "Madrid o Barcelona",
+              description: "Las dos grandes áreas metropolitanas principales.",
+              scoreLabel: "Tier 1",
+            },
+            {
+              label: "Capital de provincia relevante",
+              description: "Valencia, Sevilla, Málaga, Zaragoza, Bilbao o Alicante.",
+              scoreLabel: "Tier 2",
+            },
+            {
+              label: "Ciudad mediana",
+              description: "Vigo, Santander, Valladolid, A Coruña o similares.",
+              scoreLabel: "Tier 3",
+            },
+            {
+              label: "Población pequeña o entorno rural",
+              description: "Municipios pequeños, cabeceras de comarca o zonas rurales.",
+              scoreLabel: "Tier 4",
+            },
+          ],
+        },
+        cabinets: {
+          category: "Capacidad",
+          title: "¿Cuántos gabinetes operativos tiene la clínica?",
+          helper:
+            "Usamos este dato para estimar el techo operativo real: inversión aconsejable, primeras visitas asumibles y potencial mensual de producción.",
+          impactNote:
+            "El número de gabinetes no mejora por sí solo la conversión, pero sí condiciona cuánto crecimiento puede absorber la clínica sin tensionar agenda y atención.",
+          options: [
+            { label: "1-2 gabinetes", description: "Clínica compacta, con potencial controlado y necesidad de captar con precisión.", scoreLabel: "Escala base" },
+            { label: "3-4 gabinetes", description: "Tamaño óptimo para convertir bien si la estructura comercial acompaña.", scoreLabel: "Escala media" },
+            { label: "5-6 gabinetes", description: "Capacidad clara para sostener más visitas, diagnósticos y cierres mensuales.", scoreLabel: "Escala alta" },
+            { label: "7 o más gabinetes", description: "Operación con techo alto, ideal para escenarios de crecimiento estructurado.", scoreLabel: "Escala premium" },
+          ],
+        },
+        tac: {
+          category: "Diagnóstico",
+          title: "¿Cómo está resuelta la parte de pruebas diagnósticas en implantología?",
+          helper:
+            "Queremos entender si la clínica puede diagnosticar y avanzar con comodidad dentro de su propio flujo o si depende demasiado de derivaciones externas.",
+          impactNote:
+            "Cuanta más autonomía diagnóstica tenga la clínica, más fácil es sostener autoridad, velocidad y conversión en implantología.",
+          options: [
+            { label: "TAC interno y escáner intraoral", description: "La clínica resuelve el diagnóstico completo dentro de su propia experiencia clínica.", scoreLabel: "Mayor cierre" },
+            { label: "Escáner intraoral y TAC con derivación externa", description: "Existe una base diagnóstica sólida, aunque parte del proceso depende de un tercero.", scoreLabel: "Fricción media" },
+            { label: "Todo depende de derivación externa", description: "La experiencia diagnóstica queda fuera del flujo propio de la clínica y eso penaliza el cierre.", scoreLabel: "Mayor fricción" },
+          ],
+        },
+        advisor: {
+          category: "Cierre",
+          title: "¿Cuenta con asesor comercial o figura específica de cierre?",
+          helper:
+            "No es lo mismo que el doctor presente el caso sin apoyo que contar con una persona entrenada en financiación, objeciones y acompañamiento al cierre.",
+          impactNote:
+            "Afecta directamente a la conversión visita a tratamiento y al aprovechamiento del tráfico generado.",
+          options: [
+            { label: "Sí, hay asesor comercial", description: "La clínica tiene una figura clara para ordenar objeciones, financiación y decisión.", scoreLabel: "Cierre sólido" },
+            { label: "No, el cierre recae en clínica o doctor", description: "El potencial existe, pero suele cerrarse peor por falta de proceso comercial.", scoreLabel: "Cierre irregular" },
+          ],
+        },
+        visitPrice: {
+          category: "Entrada",
+          title: "¿Cómo gestionan la primera visita?",
+          helper:
+            "El nivel de fricción de entrada cambia mucho según si la primera visita es gratuita, simbólica o se cobra completa desde el inicio.",
+          impactNote:
+            "Esta variable influye sobre cita y asistencia, porque cambia la predisposición inicial del paciente a reservar y acudir.",
+          options: [
+            { label: "Gratuita", description: "Reduce la barrera inicial y facilita convertir interés en primera visita.", scoreLabel: "Menor fricción" },
+            { label: "Precio simbólico o parcial", description: "Equilibrio entre percepción de valor y facilidad de entrada.", scoreLabel: "Fricción media" },
+            { label: "Se cobra completa", description: "Filtra más, pero hace el agendado más exigente si no hay fuerte autoridad y recepción.", scoreLabel: "Mayor fricción" },
+          ],
+        },
+        digital: {
+          category: "Marca",
+          title: "¿Qué nivel de presencia digital tiene la clínica?",
+          helper:
+            "Aquí valoramos si la clínica transmite confianza previa en redes sociales, Google, web y reputación pública.",
+          impactNote:
+            "Una presencia digital robusta aumenta la facilidad de contacto y reduce no-shows porque mejora la confianza antes de acudir.",
+          options: [
+            { label: "Robusta en redes y Google", description: "Marca viva, autoridad visible y activos digitales que respaldan la decisión del paciente.", scoreLabel: "Autoridad alta" },
+            { label: "Correcta pero mejorable", description: "La clínica transmite cierta seguridad, aunque todavía no capitaliza todo su potencial.", scoreLabel: "Autoridad media" },
+            { label: "Débil o poco trabajada", description: "La falta de presencia digital añade fricción al contacto y a la asistencia.", scoreLabel: "Autoridad baja" },
+          ],
+        },
+        protocol: {
+          category: "Proceso",
+          title: "¿Existe un protocolo claro de primera visita y presentación del tratamiento?",
+          helper:
+            "No preguntamos solo si atienden bien, sino si existe un proceso repetible de diagnóstico, presentación y avance hacia cierre.",
+          impactNote: "Es una de las grandes palancas del cierre en tratamientos de valor como implantología.",
+          options: [
+            { label: "Sí, bien estructurado", description: "La clínica tiene un flujo consistente para convertir confianza en aceptación.", scoreLabel: "Proceso fuerte" },
+            { label: "Parcial o dependiente de la persona", description: "Hay buenas prácticas, pero no una sistemática estable y replicable.", scoreLabel: "Proceso medio" },
+            { label: "No, cada caso se gestiona distinto", description: "Eso suele generar pérdida silenciosa de cierres y decisiones aplazadas.", scoreLabel: "Proceso débil" },
+          ],
+        },
+        reception: {
+          category: "Recepción",
+          title: "¿Cómo está organizada la recepción?",
+          helper:
+            "La conversión telefónica y el agendado dependen mucho de si existe una recepción enfocada o si la atención está dispersa entre varias tareas.",
+          impactNote:
+            "Afecta sobre todo a contacto y cita: menos multitarea suele traducirse en más conversaciones útiles y más agendas cerradas.",
+          options: [
+            { label: "Recepción exclusiva", description: "Hay equipo dedicado a atender, responder, ordenar agenda y sostener seguimiento.", scoreLabel: "Alta conversión" },
+            { label: "Apoyo compartido", description: "La función existe, pero compite con otras tareas operativas del día a día.", scoreLabel: "Conversión media" },
+            { label: "Higienistas o personal multitarea", description: "La recepción no tiene foco y suele perder velocidad, calidad de llamada y consistencia.", scoreLabel: "Conversión baja" },
+          ],
+        },
+        speed: {
+          category: "Velocidad",
+          title: "¿Con qué rapidez suelen contactar los nuevos leads?",
+          helper:
+            "La velocidad de contacto es una variable crítica. Un mismo lead vale mucho menos cuando se atiende tarde o sin sistemática.",
+          impactNote:
+            "Es una de las variables más directas sobre el porcentaje de contacto real y condiciona el resto del embudo.",
+          options: [
+            { label: "En el mismo día", description: "La clínica responde rápido y captura mejor la intención caliente del paciente.", scoreLabel: "Contacto alto" },
+            { label: "Dentro de 24 horas", description: "Sigue siendo razonable, aunque ya se pierde parte de la inercia inicial.", scoreLabel: "Contacto medio" },
+            { label: "Más tarde o de forma irregular", description: "Aquí suele aparecer una fuga importante de oportunidades antes incluso del agendado.", scoreLabel: "Contacto bajo" },
+          ],
+        },
+        financing: {
+          category: "Financiación",
+          title: "¿La financiación está integrada de forma clara en la venta?",
+          helper:
+            "No basta con que exista en teoría. Lo relevante es si se utiliza con seguridad, rapidez y naturalidad para desbloquear cierres.",
+          impactNote:
+            "La financiación correcta impacta de forma muy clara sobre aceptación de tratamiento y consumo de implantes.",
+          options: [
+            { label: "Sí, bien integrada", description: "La clínica usa financiación como herramienta real de cierre y acceso al tratamiento.", scoreLabel: "Mayor cierre" },
+            { label: "Existe, pero con uso limitado", description: "Ayuda en algunos casos, aunque todavía no está incorporada al proceso de forma natural.", scoreLabel: "Impacto medio" },
+            { label: "No está integrada", description: "Esto frena cierres y empeora la aceptación en tratamientos de ticket elevado.", scoreLabel: "Impacto bajo" },
+          ],
+        },
+        actualVisits: {
+          category: "Base actual",
+          title: "¿Cuántas primeras visitas de implantes tiene actualmente la clínica al mes?",
+          helper:
+            "Queremos entender el punto de partida real de la clínica antes de estimar el salto que podría dar con una campaña activa.",
+          impactNote:
+            "Este dato nos sirve para construir el escenario actual y compararlo con el crecimiento realista que podría conseguir la clínica.",
+          inputLabel: "Media de primeras visitas de implantes aproximada",
+          placeholder: "Ejemplo: 15",
+        },
+        actualImplants: {
+          category: "Base actual",
+          title: "¿Cuántos implantes coloca actualmente la clínica al mes de media?",
+          helper:
+            "Este volumen nos ayuda a estimar la producción actual de implantología y a medir el crecimiento incremental sobre una base real.",
+          impactNote:
+            "Con este dato calculamos el punto de partida actual de la clínica en pacientes cerrados, implantes e ingresos mensuales.",
+          inputLabel: "Media aproximada de implantes mensuales colocados",
+          placeholder: "Ejemplo: 9",
+        },
+        averageTicket: {
+          category: "Base actual",
+          title: "¿Cuál es el ticket medio por paciente de implantología de la clínica?",
+          helper:
+            "Este dato nos ayuda a traducir el volumen de pacientes e implantes a una facturación realista asociada a implantología.",
+          impactNote:
+            "Con este ticket medio calculamos la facturación actual y la facturación potencial asociada al crecimiento implantológico.",
+          inputLabel: "Ticket medio por paciente de implantología",
+          placeholder: "Ejemplo: 2900",
+        },
+      },
+    },
   },
-  {
-    id: "cabinets",
-    category: "Capacidad",
-    title: "¿Cuántos gabinetes operativos tiene la clínica?",
-    helper:
-      "Usamos este dato para estimar el techo operativo real: inversión aconsejable, primeras visitas asumibles y potencial mensual de producción.",
-    impactNote:
-      "El número de gabinetes no mejora por sí solo la conversión, pero sí condiciona cuánto crecimiento puede absorber la clínica sin tensionar agenda y atención.",
-    options: [
-      {
-        value: "1-2",
-        label: "1-2 gabinetes",
-        description: "Clínica compacta, con potencial controlado y necesidad de captar con precisión.",
-        scoreLabel: "Escala base",
+  en: {
+    locale: "en-GB",
+    metaTitle: "Sweden & Martina | Clinic Potential Calculator",
+    metaDescription:
+      "Interactive landing page to estimate profitability, lead generation, and implant consumption potential for dental clinics partnering with Sweden & Martina.",
+    static: {
+      brandSubtitle: "Partner Opportunity Calculator",
+      brandCollabLabel: "Developed by",
+      navStartSimulation: "Start simulation",
+      heroEyebrow: "Consultative sales tool for partners",
+      heroTitle:
+        'Discover how implant patient volume could increase by up to 50% for <span>Sweden & Martina in any dental clinic</span>',
+      heroText:
+        "Simulate the real structure of a clinic, detect its bottlenecks, and turn that reality into patients, production, and potential implant volume. Built to help partners prioritize opportunities and support the conversation with numbers.",
+      heroSignatureLabel: "Engine developed by",
+      heroPrimaryCtaDesktop: "Play with scenarios",
+      heroPrimaryCtaMobile: "Calculate the potential of any dental clinic with Climadent",
+      heroSecondaryCta: "View methodology",
+      heroMetricOne: "dental business variables",
+      heroMetricTwo: "interpretable funnel stages",
+      heroMetricThree: "compared scenarios: current and with campaign",
+      productMiniLabel: "Opportunity Engine",
+      productTitle: "Clinical profitability, conversion, and implant consumption",
+      productBody:
+        "An internal model designed to translate structure, marketing, and clinical conversion into a clear commercial reading for Sweden & Martina.",
+      heroPanelCalcLabel: "What it calculates",
+      heroPanelCalcItemOne: "Monthly lead generation potential",
+      heroPanelCalcItemTwo: "Capacity for first visits",
+      heroPanelCalcItemThree: "Estimated clinical conversion",
+      heroPanelCalcItemFour: "Incremental implant consumption",
+      heroAudienceLabel: "Who it is for",
+      heroAudienceBody:
+        "Sales reps, distributors, and partners who need to identify which clinics have the most room to grow and how to argue that opportunity with numbers.",
+      pillarOneTitle: "Not a generic calculator",
+      pillarOneBody:
+        "It translates real dental business signals into a profitability and implant consumption model.",
+      pillarTwoTitle: "Explains why it happens",
+      pillarTwoBody:
+        "Each answer only impacts its real funnel stage: acquisition, contact, booking, attendance, or closing.",
+      pillarThreeTitle: "Helps sell better",
+      pillarThreeBody:
+        "The result is not just a number: it is a commercial narrative about potential, constraints, and structural improvement.",
+      simulatorEyebrow: "Guided simulator",
+      simulatorTitle:
+        "Calculate the potential of any dental clinic with the Climadent acquisition system in one month with an implant campaign",
+      simulatorBody:
+        "Each step describes an operational reality. The engine turns those answers into a monthly projection that can be used in a commercial conversation.",
+      profileEyebrow: "Profile in progress",
+      resultsEyebrow: "Strategic result",
+      resultsTitle: "Monthly reading of the clinic's potential",
+      resultsBody:
+        "A comparison between the clinic's current situation and the realistic scenario it could reach in one month with an active Climadent campaign.",
+      insightEyebrow: "Commercial reading",
+      funnelEyebrow: "Estimated funnel",
+      funnelTitle: "Conversion by stage",
+      funnelChip: "Monthly",
+      comparisonEyebrow: "Comparison",
+      comparisonTitle: "Current vs with campaign",
+      comparisonChip: "Realistic uplift",
+      impactEyebrow: "Impact map",
+      impactTitle: "What is driving this result",
+      impactChip: "By stage",
+      tableEyebrow: "KPI detail",
+      tableTitle: "Executive table",
+      closingEyebrow: "Next step",
+      closingTitle: "Use this scenario as a conversation tool, not as an isolated data point",
+      closingBody:
+        "The value of the tool lies in identifying which clinics have the most room to grow and which levers justify a structured intervention to increase implant consumption.",
+      reviewMethodologyLink: "Review methodology",
+      tableHeaders: ["KPI", "Expected results", "Reading"],
+      buttons: {
+        reset: "Reset simulation",
+        previous: "Previous",
+        next: "Next",
+        viewResults: "View results",
+        restartScenario: "Explore another scenario",
+        calculating: "Calculating...",
       },
-      {
-        value: "3-4",
-        label: "3-4 gabinetes",
-        description: "Tamaño óptimo para convertir bien si la estructura comercial acompaña.",
-        scoreLabel: "Escala media",
+      profile: {
+        defaultHeadline: "Clinic not defined yet",
+        defaultSummary: "Select the key variables to see an executive reading of the case.",
+        clinicFallback: "Clinic",
+        structureFallback: "structure to be defined",
+        receptionFallback: "reception not defined",
+        digitalFallback: "not assessed",
+        protocolFallback: "not evaluated",
+        pendingAnswer: "Not answered",
+        baselineSummary: "Declared current baseline: {visits} first visits and {implants} implants per month.",
+        summaryTemplate:
+          "Profile with {reception}, digital presence {digital}, and protocol {protocol}.",
       },
-      {
-        value: "5-6",
-        label: "5-6 gabinetes",
-        description: "Capacidad clara para sostener más visitas, diagnósticos y cierres mensuales.",
-        scoreLabel: "Escala alta",
+      loading: {
+        stepLabel: "Step {current} of {total}",
+        category: "Calculating",
+        miniLabel: "Processing scenario",
+        title: "Calculating the clinic projection",
+        helper:
+          "We are combining acquisition, contact, attendance, and closing to estimate a realistic one-month implant campaign scenario with Climadent.",
+        impactLabel: "Reading in progress",
       },
-      {
-        value: "7+",
-        label: "7 o más gabinetes",
-        description: "Operación con techo alto, ideal para escenarios de crecimiento estructurado.",
-        scoreLabel: "Escala premium",
+      questionUi: {
+        impactLabel: "What changes here",
       },
-    ],
+      diagnostics: {
+        contact: "contact",
+        appointments: "booking",
+        attendance: "attendance",
+        close: "closing",
+      },
+      insights: {
+        title: "The biggest leak is in {phase}",
+        body:
+          "With the current configuration, the clinic is losing a meaningful share of the value created before treatment. The greatest potential jump appears when strengthening {lift}.",
+        scoreLabel: "Optimization level",
+        scoreCaption:
+          "Estimated score for how structured the clinic is to turn demand into implant patients consistently.",
+        earlyLeak:
+          "Reception and contact speed suggest an early loss of opportunities before the booking stage even starts.",
+        closeOpportunity:
+          "The clinic seems to have more room to grow in closing than in volume: professionalizing the first visit and closing process can multiply the current traffic more effectively.",
+        weakDigital:
+          "Weak digital authority adds friction both to contact and attendance; the clinic is not converting with the level of trust it could build.",
+        tacFinance:
+          "Diagnostics and financing are limiting treatment acceptance, especially in high-ticket implantology.",
+        generic:
+          "The overall structure is reasonable, but there is still clear room to turn demand into attended visits and closed cases more efficiently.",
+        implantsLift:
+          "If the clinic also optimized its structure to the maximum, the partner could activate approximately {value} additional implants per month with the same clinic base.",
+        cards: {
+          contactTitle: "Contact and reception reinforcement",
+          contactBody:
+            "The first priority is to reduce leakage in the first hours. Focused reception, clear call scripts, and immediate follow-up usually move the funnel more than extra media spend.",
+          closeTitle: "First-visit and closing protocol",
+          closeBody:
+            "The clinic already creates interest, but it needs a more guided first visit: clearer diagnosis, stronger authority in the proposal, and a simpler decision path for the patient.",
+          trustTitle: "Brand and pre-visit trust",
+          trustBody:
+            "Before attending, the patient needs more confidence. A stronger digital presence and a clearer entry experience help prevent traffic from cooling down between lead and visit.",
+          financeTitle: "Financing and accessibility",
+          financeBody:
+            "When financing is not a real part of the sales process, treatment acceptance is lost even in well-indicated cases. Integrating it better usually lifts conversion without more spend.",
+          operationsTitle: "Operational capacity and consistency",
+          operationsBody:
+            "The opportunity is not only about attracting more demand, but about sustaining it better. Organizing scheduling, reception, and follow-up enables growth with less friction and more predictability.",
+          impactTitle: "Potential monthly impact",
+          impactBody:
+            "If the clinic also optimized its internal processes to the maximum, it could still capture more value from the same campaign and convert a larger share of current demand into closed treatments.",
+          impactTail: "That would open an additional margin of around {implants} extra implants and {revenue} in additional monthly revenue.",
+        },
+      },
+      results: {
+        kpis: {
+          patientsTitle: "Extra implant patients closed per month",
+          patientsBody:
+            "Realistic monthly projection of extra patients captured and closed with a typical Climadent campaign.",
+          implantsTitle: "Extra implants projected per month",
+          implantsBody:
+            "Realistic monthly implant volume linked to that campaign and conversion scenario.",
+          revenueTitle: "Extra implant revenue per month",
+          revenueBody: "Realistic monthly extra production estimated with a constant average ticket.",
+          costTitle: "Implant campaign ROI",
+          costBody: "Estimated return from an implant campaign with a monthly Meta investment of €450.",
+        },
+        funnel: {
+          leads: "Estimated implant leads",
+          contacted: "Contacted implant leads",
+          appointments: "Implant appointments booked",
+          visits: "Monthly implant first visits at the clinic",
+          closed: "Implant patients closed by the clinic",
+        },
+        comparison: {
+          leads: "Estimated leads",
+          contact: "% contact",
+          appointment: "% booking / contact",
+          attendance: "% attendance",
+          close: "% close / visit",
+        },
+        table: {
+          budget: "Monthly campaign investment",
+          budgetNote: "This version uses a fixed Meta investment of €450 per month.",
+          cpl: "Estimated CPL",
+          cplNote: "{competition} competitive pressure according to environment.",
+          contact: "% contact",
+          contactNote: "Driven by contact speed, reception, and digital authority.",
+          appointment: "% booking/contact",
+          appointmentNote: "First-visit friction and the reception team move this stage.",
+          attendance: "% attendance",
+          attendanceNote: "Brand and ease of entry support real attendance.",
+          close: "% close/visit",
+          closeNote: "Diagnostics, financing, advisor, and protocol explain the difference.",
+          patients: "Extra implant patients closed",
+          patientsNote: "Estimated monthly clinical conversion in implant assessment.",
+          implants: "Extra monthly implants placed by the clinic",
+          implantsNote: "Direct value KPI for Sweden & Martina.",
+          revenue: "Extra implantology revenue",
+          revenueNote: "Estimated implant-related revenue based on the declared average ticket.",
+          cac: "CAC per patient",
+          cacNote: "Estimated acquisition cost according to funnel performance.",
+        },
+        competition: {
+          high: "high",
+          mediumHigh: "medium-high",
+          medium: "medium",
+          low: "low",
+        },
+      },
+      questions: {
+        location: {
+          category: "Environment",
+          title: "Where does the clinic compete?",
+          helper:
+            "We classify the clinic based on the environment where it operates: metropolitan area, relevant provincial capital, medium city, or small town.",
+          impactNote:
+            "This territorial classification helps place the clinic in a real geographic tier before estimating potential.",
+          options: [
+            { label: "Madrid or Barcelona", description: "The two main metropolitan areas.", scoreLabel: "Tier 1" },
+            { label: "Relevant provincial capital", description: "Valencia, Seville, Málaga, Zaragoza, Bilbao, or Alicante.", scoreLabel: "Tier 2" },
+            { label: "Medium-sized city", description: "Vigo, Santander, Valladolid, A Coruña, or similar.", scoreLabel: "Tier 3" },
+            { label: "Small town or rural area", description: "Small municipalities, county capitals, or rural areas.", scoreLabel: "Tier 4" },
+          ],
+        },
+        cabinets: {
+          category: "Capacity",
+          title: "How many operating surgeries does the clinic have?",
+          helper:
+            "We use this to estimate the real operational ceiling: suggested investment, manageable first visits, and monthly production potential.",
+          impactNote:
+            "The number of surgeries does not improve conversion on its own, but it does condition how much growth the clinic can absorb without stressing agenda and care.",
+          options: [
+            { label: "1-2 surgeries", description: "Compact clinic with controlled potential and need for precise acquisition.", scoreLabel: "Base scale" },
+            { label: "3-4 surgeries", description: "Optimal size to convert well if the commercial structure supports it.", scoreLabel: "Medium scale" },
+            { label: "5-6 surgeries", description: "Clear capacity to sustain more visits, diagnostics, and monthly closes.", scoreLabel: "High scale" },
+            { label: "7 or more surgeries", description: "High-ceiling operation, ideal for structured growth scenarios.", scoreLabel: "Premium scale" },
+          ],
+        },
+        tac: {
+          category: "Diagnostics",
+          title: "How is implant diagnostic testing handled in the clinic?",
+          helper:
+            "We want to understand whether the clinic can diagnose and move forward comfortably within its own flow or whether it depends too much on external referrals.",
+          impactNote:
+            "The more diagnostic autonomy the clinic has, the easier it is to sustain authority, speed, and conversion in implantology.",
+          options: [
+            { label: "In-house CBCT and intraoral scanner", description: "The clinic can resolve the full diagnostic process within its own clinical experience.", scoreLabel: "Higher close rate" },
+            { label: "Intraoral scanner and external CBCT referral", description: "There is a solid diagnostic base, although part of the process depends on a third party.", scoreLabel: "Medium friction" },
+            { label: "Everything depends on external referral", description: "The diagnostic experience sits outside the clinic's own flow and that penalizes closing.", scoreLabel: "Highest friction" },
+          ],
+        },
+        advisor: {
+          category: "Closing",
+          title: "Is there a sales advisor or dedicated closing role?",
+          helper:
+            "It is not the same for the doctor to present the case alone as having someone trained in financing, objections, and support through closing.",
+          impactNote:
+            "It directly affects visit-to-treatment conversion and the ability to capitalize on generated traffic.",
+          options: [
+            { label: "Yes, there is a sales advisor", description: "The clinic has a clear figure to manage objections, financing, and decision-making.", scoreLabel: "Strong closing" },
+            { label: "No, closing depends on clinic or doctor", description: "Potential exists, but it usually closes worse due to lack of a commercial process.", scoreLabel: "Irregular closing" },
+          ],
+        },
+        visitPrice: {
+          category: "Entry",
+          title: "How is the first visit handled?",
+          helper:
+            "Entry friction changes a lot depending on whether the first visit is free, symbolic, or fully paid from the start.",
+          impactNote:
+            "This variable influences booking and attendance because it changes the patient's initial willingness to reserve and attend.",
+          options: [
+            { label: "Free", description: "Reduces the initial barrier and makes it easier to turn interest into a first visit.", scoreLabel: "Lower friction" },
+            { label: "Symbolic or partial fee", description: "Balance between perceived value and ease of entry.", scoreLabel: "Medium friction" },
+            { label: "Fully charged", description: "Filters more, but makes booking more demanding without strong authority and reception.", scoreLabel: "Higher friction" },
+          ],
+        },
+        digital: {
+          category: "Brand",
+          title: "What level of digital presence does the clinic have?",
+          helper:
+            "Here we evaluate whether the clinic conveys prior trust through social media, Google, website, and public reputation.",
+          impactNote:
+            "A strong digital presence increases ease of contact and reduces no-shows because it builds trust before the visit.",
+          options: [
+            { label: "Strong on social media and Google", description: "Active brand, visible authority, and digital assets that support the patient's decision.", scoreLabel: "High authority" },
+            { label: "Good but improvable", description: "The clinic conveys some confidence, although it still does not capitalize on its full potential.", scoreLabel: "Medium authority" },
+            { label: "Weak or poorly developed", description: "Lack of digital presence adds friction to contact and attendance.", scoreLabel: "Low authority" },
+          ],
+        },
+        protocol: {
+          category: "Process",
+          title: "Is there a clear first-visit and treatment presentation protocol?",
+          helper:
+            "We are not only asking whether they treat patients well, but whether there is a repeatable process for diagnosis, presentation, and advancing toward closing.",
+          impactNote:
+            "This is one of the biggest closing levers in high-value treatments such as implantology.",
+          options: [
+            { label: "Yes, well structured", description: "The clinic has a consistent flow to turn trust into acceptance.", scoreLabel: "Strong process" },
+            { label: "Partial or person-dependent", description: "There are good practices, but not a stable and repeatable system.", scoreLabel: "Medium process" },
+            { label: "No, each case is handled differently", description: "This usually creates silent losses in closes and postponed decisions.", scoreLabel: "Weak process" },
+          ],
+        },
+        reception: {
+          category: "Reception",
+          title: "How is reception organized?",
+          helper:
+            "Phone conversion and booking depend a lot on whether there is a focused reception team or whether attention is spread across several tasks.",
+          impactNote:
+            "It mainly affects contact and booking: less multitasking usually means more useful conversations and more filled agendas.",
+          options: [
+            { label: "Dedicated reception", description: "There is a team dedicated to answering, organizing schedules, and maintaining follow-up.", scoreLabel: "High conversion" },
+            { label: "Shared support", description: "The function exists, but it competes with other day-to-day operational tasks.", scoreLabel: "Medium conversion" },
+            { label: "Hygienists or multitasking staff", description: "Reception lacks focus and usually loses speed, call quality, and consistency.", scoreLabel: "Low conversion" },
+          ],
+        },
+        speed: {
+          category: "Speed",
+          title: "How quickly are new leads usually contacted?",
+          helper:
+            "Contact speed is a critical variable. The same lead is worth much less when it is handled late or without a system.",
+          impactNote:
+            "It is one of the most direct variables affecting the real contact rate and conditions the rest of the funnel.",
+          options: [
+            { label: "Same day", description: "The clinic responds quickly and captures the patient's hot intent better.", scoreLabel: "High contact" },
+            { label: "Within 24 hours", description: "Still reasonable, although some of the initial momentum is already lost.", scoreLabel: "Medium contact" },
+            { label: "Later or irregularly", description: "This is where a major leak often appears before the booking stage even starts.", scoreLabel: "Low contact" },
+          ],
+        },
+        financing: {
+          category: "Financing",
+          title: "Is financing clearly integrated into the sales process?",
+          helper:
+            "It is not enough for it to exist in theory. What matters is whether it is used confidently, quickly, and naturally to unlock closes.",
+          impactNote:
+            "Proper financing has a very clear impact on treatment acceptance and implant consumption.",
+          options: [
+            { label: "Yes, well integrated", description: "The clinic uses financing as a real tool for closing and treatment access.", scoreLabel: "Higher close rate" },
+            { label: "It exists, but usage is limited", description: "It helps in some cases, although it is not yet naturally integrated into the process.", scoreLabel: "Medium impact" },
+            { label: "It is not integrated", description: "This slows closes and worsens acceptance in high-ticket treatments.", scoreLabel: "Low impact" },
+          ],
+        },
+        actualVisits: {
+          category: "Current baseline",
+          title: "How many implant first visits does the clinic currently have per month?",
+          helper:
+            "We want to understand the clinic's real starting point before estimating the uplift it could achieve with an active campaign.",
+          impactNote:
+            "This lets us build the current scenario and compare it with the realistic growth the clinic could achieve.",
+          inputLabel: "Implant first visits",
+          placeholder: "Example: 15",
+        },
+        actualImplants: {
+          category: "Current baseline",
+          title: "How many implants does the clinic currently place on average per month?",
+          helper:
+            "This volume helps us estimate the current implant production and measure incremental growth on a real baseline.",
+          impactNote:
+            "With this input we calculate the clinic's current starting point in closed patients, implants, and monthly revenue.",
+          inputLabel: "Average monthly implants placed",
+          placeholder: "Example: 9",
+        },
+        averageTicket: {
+          category: "Current baseline",
+          title: "What is the clinic's average ticket per implantology patient?",
+          helper:
+            "This helps us translate patient and implant volume into realistic revenue linked to implantology.",
+          impactNote:
+            "With this average ticket we calculate the current revenue and the potential revenue associated with implant growth.",
+          inputLabel: "Average ticket per implantology patient",
+          placeholder: "Example: 2900",
+        },
+      },
+    },
   },
-  {
-    id: "tac",
-    category: "Diagnóstico",
-    title: "¿La clínica dispone de TAC interno?",
-    helper:
-      "El TAC interno reduce fricción diagnóstica, eleva percepción de solvencia y suele mejorar la tasa de aceptación del plan de tratamiento.",
-    impactNote:
-      "Su principal efecto está en la fase de cierre: facilita diagnóstico, autoridad clínica y velocidad en la propuesta.",
-    options: [
-      {
-        value: "yes",
-        label: "Sí, TAC interno disponible",
-        description: "La clínica puede hacer diagnóstico y propuesta con una experiencia más completa.",
-        scoreLabel: "Mayor cierre",
+  it: {
+    locale: "it-IT",
+    metaTitle: "Sweden & Martina | Calcolatore del potenziale della clinica",
+    metaDescription:
+      "Landing interattiva per stimare il potenziale di redditività, acquisizione e consumo di impianti delle cliniche dentali per i partner di Sweden & Martina.",
+    static: {
+      brandSubtitle: "Partner Opportunity Calculator",
+      brandCollabLabel: "Sviluppato da",
+      navStartSimulation: "Avvia simulazione",
+      heroEyebrow: "Strumento di vendita consulenziale per partner",
+      heroTitle:
+        'Scopri come il volume di pazienti implantari può aumentare fino al 50% per <span>Sweden & Martina in qualsiasi clinica dentale</span>',
+      heroText:
+        "Simula la struttura reale di una clinica, individua i suoi colli di bottiglia e traduce questa realtà in pazienti, produzione e potenziale di impianti. Pensato per aiutare il partner a dare priorità alle opportunità e sostenere la conversazione con numeri concreti.",
+      heroSignatureLabel: "Motore sviluppato da",
+      heroPrimaryCtaDesktop: "Esplora gli scenari",
+      heroPrimaryCtaMobile: "Calcola il potenziale di qualsiasi clinica dentale con Climadent",
+      heroSecondaryCta: "Vedi metodologia",
+      heroMetricOne: "variabili del business dentale",
+      heroMetricTwo: "fasi del funnel interpretabili",
+      heroMetricThree: "scenari confrontati: attuale e con campagna",
+      productMiniLabel: "Opportunity Engine",
+      productTitle: "Redditività clinica, chiusura e consumo di impianti",
+      productBody:
+        "Un modello interno progettato per tradurre struttura, marketing e conversione clinica in una lettura commerciale chiara per Sweden & Martina.",
+      heroPanelCalcLabel: "Cosa calcola",
+      heroPanelCalcItemOne: "Potenziale mensile di acquisizione",
+      heroPanelCalcItemTwo: "Capacità di prime visite",
+      heroPanelCalcItemThree: "Conversione clinica stimata",
+      heroPanelCalcItemFour: "Consumo incrementale di impianti",
+      heroAudienceLabel: "Per chi è pensato",
+      heroAudienceBody:
+        "Agenti, distributori e partner che devono capire quali cliniche hanno più margine di crescita e come argomentare questa opportunità con i numeri.",
+      pillarOneTitle: "Non è un calcolatore generico",
+      pillarOneBody:
+        "Traduce segnali reali del business dentale in un modello di redditività e consumo di impianti.",
+      pillarTwoTitle: "Spiega perché succede",
+      pillarTwoBody:
+        "Ogni risposta impatta solo la sua fase reale del funnel: acquisizione, contatto, prenotazione, presenza o chiusura.",
+      pillarThreeTitle: "Aiuta a vendere meglio",
+      pillarThreeBody:
+        "Il risultato non è solo un numero: è una narrazione commerciale su potenziale, limiti e miglioramento strutturale.",
+      simulatorEyebrow: "Simulatore guidato",
+      simulatorTitle:
+        "Calcola il potenziale di qualsiasi clinica dentale con il sistema Climadent in un mese con una campagna implantare",
+      simulatorBody:
+        "Ogni passaggio descrive una realtà operativa. Il motore trasforma queste risposte in una proiezione mensile utilizzabile in una conversazione commerciale.",
+      profileEyebrow: "Profilo in costruzione",
+      resultsEyebrow: "Risultato strategico",
+      resultsTitle: "Lettura mensile del potenziale della clinica",
+      resultsBody:
+        "Un confronto tra la situazione attuale della clinica e lo scenario realistico che potrebbe raggiungere in un mese con una campagna attiva di Climadent.",
+      insightEyebrow: "Lettura commerciale",
+      funnelEyebrow: "Funnel stimato",
+      funnelTitle: "Conversione per fase",
+      funnelChip: "Mensile",
+      comparisonEyebrow: "Confronto",
+      comparisonTitle: "Attuale vs con campagna",
+      comparisonChip: "Crescita realistica",
+      impactEyebrow: "Mappa dell'impatto",
+      impactTitle: "Cosa sta muovendo questo risultato",
+      impactChip: "Per fase",
+      tableEyebrow: "Dettaglio KPI",
+      tableTitle: "Tabella esecutiva",
+      closingEyebrow: "Prossimo passo",
+      closingTitle: "Usa questo scenario come argomento di conversazione, non come dato isolato",
+      closingBody:
+        "Il valore dello strumento sta nell'identificare quali cliniche hanno più margine di crescita e quali leve giustificano un intervento strutturato per aumentare il consumo di impianti.",
+      reviewMethodologyLink: "Rivedi metodologia",
+      tableHeaders: ["KPI", "Risultati attesi", "Lettura"],
+      buttons: {
+        reset: "Reimposta simulazione",
+        previous: "Precedente",
+        next: "Successivo",
+        viewResults: "Vedi risultati",
+        restartScenario: "Esplora un altro scenario",
+        calculating: "Calcolo...",
       },
-      {
-        value: "no",
-        label: "No, depende de derivación externa",
-        description: "Más fricción clínica y más riesgo de fuga entre visita, diagnóstico y aceptación.",
-        scoreLabel: "Más fricción",
+      profile: {
+        defaultHeadline: "Clinica non ancora definita",
+        defaultSummary: "Seleziona le variabili chiave per vedere una lettura esecutiva del caso.",
+        clinicFallback: "Clinica",
+        structureFallback: "struttura da definire",
+        receptionFallback: "reception non definita",
+        digitalFallback: "non valutata",
+        protocolFallback: "non valutato",
+        pendingAnswer: "Non risposto",
+        baselineSummary: "Base attuale dichiarata: {visits} prime visite e {implants} impianti al mese.",
+        summaryTemplate:
+          "Scenario con {reception}, presenza digitale {digital} e protocollo {protocol}.",
       },
-    ],
-  },
-  {
-    id: "advisor",
-    category: "Cierre",
-    title: "¿Cuenta con asesor comercial o figura específica de cierre?",
-    helper:
-      "No es lo mismo que el doctor presente el caso sin apoyo que contar con una persona entrenada en financiación, objeciones y acompañamiento al cierre.",
-    impactNote:
-      "Afecta directamente a la conversión visita a tratamiento y al aprovechamiento del tráfico generado.",
-    options: [
-      {
-        value: "yes",
-        label: "Sí, hay asesor comercial",
-        description: "La clínica tiene una figura clara para ordenar objeciones, financiación y decisión.",
-        scoreLabel: "Cierre sólido",
+      loading: {
+        stepLabel: "Passo {current} di {total}",
+        category: "Calcolo",
+        miniLabel: "Elaborazione scenario",
+        title: "Calcolo della proiezione della clinica",
+        helper:
+          "Stiamo incrociando acquisizione, contatto, presenza e chiusura per stimare uno scenario realistico di un mese con una campagna tipo Climadent.",
+        impactLabel: "Lettura in corso",
       },
-      {
-        value: "no",
-        label: "No, el cierre recae en clínica o doctor",
-        description: "El potencial existe, pero suele cerrarse peor por falta de proceso comercial.",
-        scoreLabel: "Cierre irregular",
+      questionUi: {
+        impactLabel: "Cosa cambia qui",
       },
-    ],
-  },
-  {
-    id: "visitPrice",
-    category: "Entrada",
-    title: "¿Cómo gestionan la primera visita?",
-    helper:
-      "El nivel de fricción de entrada cambia mucho según si la primera visita es gratuita, simbólica o se cobra completa desde el inicio.",
-    impactNote:
-      "Esta variable influye sobre cita y asistencia, porque cambia la predisposición inicial del paciente a reservar y acudir.",
-    options: [
-      {
-        value: "free",
-        label: "Gratuita",
-        description: "Reduce la barrera inicial y facilita convertir interés en primera visita.",
-        scoreLabel: "Menor fricción",
+      diagnostics: {
+        contact: "contatto",
+        appointments: "prenotazione",
+        attendance: "presenza",
+        close: "chiusura",
       },
-      {
-        value: "partial",
-        label: "Precio simbólico o parcial",
-        description: "Equilibrio entre percepción de valor y facilidad de entrada.",
-        scoreLabel: "Fricción media",
+      insights: {
+        title: "La perdita maggiore è in {phase}",
+        body:
+          "Con la configurazione attuale, la clinica sta perdendo una parte rilevante del valore generato prima del trattamento. Il maggiore salto potenziale appare rafforzando {lift}.",
+        scoreLabel: "Livello di ottimizzazione",
+        scoreCaption:
+          "Punteggio stimato su quanto la clinica sia strutturata per trasformare la domanda in pazienti implantari in modo costante.",
+        earlyLeak:
+          "Reception e velocità di contatto indicano una perdita precoce di opportunità ancora prima della prenotazione.",
+        closeOpportunity:
+          "La clinica sembra avere più margine nella chiusura che nel volume: professionalizzare prima visita e chiusura può moltiplicare meglio il traffico attuale.",
+        weakDigital:
+          "Una debole autorità digitale aggiunge attrito sia al contatto sia alla presenza; la clinica non converte con il livello di fiducia che potrebbe generare.",
+        tacFinance:
+          "Diagnostica e finanziamento stanno limitando l'accettazione del trattamento, soprattutto nell'implantologia ad alto ticket.",
+        generic:
+          "La struttura generale è ragionevole, ma esiste ancora un chiaro margine per trasformare meglio la domanda in visite effettuate e casi chiusi.",
+        implantsLift:
+          "Se la clinica ottimizzasse al massimo anche la propria struttura, il partner potrebbe attivare circa {value} impianti aggiuntivi al mese con la stessa base clinica.",
+        cards: {
+          contactTitle: "Rinforzo di contatto e reception",
+          contactBody:
+            "La priorità è ridurre la dispersione nelle prime ore. Una reception focalizzata, script chiari e follow-up immediato spostano il funnel prima ancora di aumentare il budget media.",
+          closeTitle: "Protocollo di prima visita e chiusura",
+          closeBody:
+            "La clinica genera già interesse, ma ha bisogno di una prima visita più guidata: diagnosi più chiara, più autorevolezza nella proposta e un percorso decisionale più semplice.",
+          trustTitle: "Brand e fiducia prima della visita",
+          trustBody:
+            "Prima di presentarsi, il paziente ha bisogno di più sicurezza. Una presenza digitale più forte e un'esperienza di ingresso più chiara evitano che il traffico si raffreddi tra lead e visita.",
+          financeTitle: "Finanziamento e accessibilità",
+          financeBody:
+            "Quando il finanziamento non fa realmente parte del processo di vendita, si perde accettazione anche su casi ben indicati. Integrarlo meglio alza spesso la conversione senza più spesa.",
+          operationsTitle: "Capacità operativa e costanza",
+          operationsBody:
+            "L'opportunità non è solo acquisire di più, ma sostenere meglio il flusso. Ordinare agenda, reception e follow-up permette di crescere con meno attrito e più prevedibilità.",
+          impactTitle: "Impatto potenziale mensile",
+          impactBody:
+            "Se la clinica ottimizzasse anche al massimo i propri processi interni, potrebbe catturare ancora più valore dalla stessa campagna e trasformare una quota maggiore della domanda attuale in trattamenti chiusi.",
+          impactTail: "Questo aprirebbe un margine aggiuntivo di circa {implants} impianti extra e {revenue} di fatturato mensile aggiuntivo.",
+        },
       },
-      {
-        value: "paid",
-        label: "Se cobra completa",
-        description: "Filtra más, pero hace el agendado más exigente si no hay fuerte autoridad y recepción.",
-        scoreLabel: "Mayor fricción",
+      results: {
+        kpis: {
+          patientsTitle: "Pazienti implantari extra chiusi al mese",
+          patientsBody:
+            "Proiezione mensile realistica di pazienti extra acquisiti e chiusi con una campagna tipo Climadent.",
+          implantsTitle: "Impianti extra previsti al mese",
+          implantsBody:
+            "Volume mensile realistico di impianti extra associato a questo scenario di campagna e conversione.",
+          revenueTitle: "Fatturato implantare extra al mese",
+          revenueBody: "Produzione extra mensile stimata in modo realistico con ticket medio costante.",
+          costTitle: "ROI campagna implantare",
+          costBody: "Rendimento stimato di una campagna implantare con un investimento mensile di 450 € su Meta.",
+        },
+        funnel: {
+          leads: "Lead implantari stimati",
+          contacted: "Lead implantari contattati",
+          appointments: "Appuntamenti implantari fissati",
+          visits: "Prime visite implantari mensili della clinica",
+          closed: "Pazienti implantari chiusi dalla clinica",
+        },
+        comparison: {
+          leads: "Lead stimati",
+          contact: "% contatto",
+          appointment: "% prenotazione / contatto",
+          attendance: "% presenza",
+          close: "% chiusura / visita",
+        },
+        table: {
+          budget: "Investimento mensile in campagna",
+          budgetNote: "In questa versione lavoriamo con un investimento fisso di 450 € al mese su Meta.",
+          cpl: "CPL stimato",
+          cplNote: "Pressione competitiva {competition} in base al contesto.",
+          contact: "% contatto",
+          contactNote: "Guidato da velocità di contatto, reception e autorità digitale.",
+          appointment: "% prenotazione/contatto",
+          appointmentNote: "L'attrito della prima visita e il team di reception muovono questa fase.",
+          attendance: "% presenza",
+          attendanceNote: "Brand e facilità di accesso sostengono la presenza reale.",
+          close: "% chiusura/visita",
+          closeNote: "Diagnostica, finanziamento, consulente e protocollo spiegano la differenza.",
+          patients: "Pazienti implantari extra chiusi",
+          patientsNote: "Conversione clinica mensile stimata in valutazione implantare.",
+          implants: "Impianti mensili extra posizionati dalla clinica",
+          implantsNote: "KPI diretto di valore per Sweden & Martina.",
+          revenue: "Fatturato extra in implantologia",
+          revenueNote: "Fatturato stimato associato all'implantologia sul ticket medio indicato.",
+          cac: "CAC per paziente",
+          cacNote: "Costo di acquisizione stimato in base al rendimento del funnel.",
+        },
+        competition: {
+          high: "alta",
+          mediumHigh: "medio-alta",
+          medium: "media",
+          low: "bassa",
+        },
       },
-    ],
-  },
-  {
-    id: "digital",
-    category: "Marca",
-    title: "¿Qué nivel de presencia digital tiene la clínica?",
-    helper:
-      "Aquí valoramos si la clínica transmite confianza previa en redes sociales, Google, web y reputación pública.",
-    impactNote:
-      "Una presencia digital robusta aumenta la facilidad de contacto y reduce no-shows porque mejora la confianza antes de acudir.",
-    options: [
-      {
-        value: "strong",
-        label: "Robusta en redes y Google",
-        description: "Marca viva, autoridad visible y activos digitales que respaldan la decisión del paciente.",
-        scoreLabel: "Autoridad alta",
+      questions: {
+        location: {
+          category: "Contesto",
+          title: "Dove compete la clinica?",
+          helper:
+            "Classifichiamo la clinica in base al contesto in cui opera: area metropolitana, capoluogo rilevante, città media o piccolo centro.",
+          impactNote:
+            "Questa classificazione territoriale ci aiuta a collocare la clinica in un tier geografico reale prima di stimarne il potenziale.",
+          options: [
+            { label: "Madrid o Barcellona", description: "Le due principali aree metropolitane.", scoreLabel: "Tier 1" },
+            { label: "Capoluogo di provincia rilevante", description: "Valencia, Siviglia, Málaga, Saragozza, Bilbao o Alicante.", scoreLabel: "Tier 2" },
+            { label: "Città media", description: "Vigo, Santander, Valladolid, A Coruña o simili.", scoreLabel: "Tier 3" },
+            { label: "Piccolo centro o area rurale", description: "Piccoli comuni, capoluoghi di zona o aree rurali.", scoreLabel: "Tier 4" },
+          ],
+        },
+        cabinets: {
+          category: "Capacità",
+          title: "Quante sale operative ha la clinica?",
+          helper:
+            "Usiamo questo dato per stimare il tetto operativo reale: investimento consigliato, prime visite gestibili e potenziale mensile di produzione.",
+          impactNote:
+            "Il numero di sale non migliora da solo la conversione, ma condiziona quanta crescita la clinica può assorbire senza stressare agenda e attenzione.",
+          options: [
+            { label: "1-2 sale", description: "Clinica compatta, con potenziale controllato e bisogno di acquisizione precisa.", scoreLabel: "Scala base" },
+            { label: "3-4 sale", description: "Dimensione ottimale per convertire bene se la struttura commerciale accompagna.", scoreLabel: "Scala media" },
+            { label: "5-6 sale", description: "Chiara capacità di sostenere più visite, diagnosi e chiusure mensili.", scoreLabel: "Scala alta" },
+            { label: "7 o più sale", description: "Operazione con tetto alto, ideale per scenari di crescita strutturata.", scoreLabel: "Scala premium" },
+          ],
+        },
+        tac: {
+          category: "Diagnostica",
+          title: "Come è gestita la parte di diagnostica implantare nella clinica?",
+          helper:
+            "Vogliamo capire se la clinica può diagnosticare e procedere comodamente nel proprio flusso o se dipende troppo da rinvii esterni.",
+          impactNote:
+            "Più autonomia diagnostica ha la clinica, più è facile sostenere autorevolezza, velocità e conversione in implantologia.",
+          options: [
+            { label: "TAC interna e scanner intraorale", description: "La clinica gestisce l'intero percorso diagnostico all'interno della propria esperienza clinica.", scoreLabel: "Maggiore chiusura" },
+            { label: "Scanner intraorale e TAC con rinvio esterno", description: "Esiste una buona base diagnostica, anche se parte del processo dipende da terzi.", scoreLabel: "Attrito medio" },
+            { label: "Tutto dipende da rinvio esterno", description: "L'esperienza diagnostica resta fuori dal flusso della clinica e questo penalizza la chiusura.", scoreLabel: "Massimo attrito" },
+          ],
+        },
+        advisor: {
+          category: "Chiusura",
+          title: "C'è un consulente commerciale o una figura dedicata alla chiusura?",
+          helper:
+            "Non è lo stesso che il medico presenti il caso da solo rispetto ad avere una persona formata su finanziamento, obiezioni e accompagnamento alla chiusura.",
+          impactNote:
+            "Influisce direttamente sulla conversione visita-trattamento e sulla capacità di sfruttare il traffico generato.",
+          options: [
+            { label: "Sì, c'è un consulente commerciale", description: "La clinica ha una figura chiara per gestire obiezioni, finanziamento e decisione.", scoreLabel: "Chiusura solida" },
+            { label: "No, la chiusura dipende da clinica o medico", description: "Il potenziale esiste, ma di solito si chiude peggio per mancanza di un processo commerciale.", scoreLabel: "Chiusura irregolare" },
+          ],
+        },
+        visitPrice: {
+          category: "Ingresso",
+          title: "Come viene gestita la prima visita?",
+          helper:
+            "L'attrito in ingresso cambia molto a seconda che la prima visita sia gratuita, simbolica o completamente a pagamento fin dall'inizio.",
+          impactNote:
+            "Questa variabile influisce su prenotazione e presenza perché cambia la disponibilità iniziale del paziente a prenotare e presentarsi.",
+          options: [
+            { label: "Gratuita", description: "Riduce la barriera iniziale e facilita la trasformazione dell'interesse in prima visita.", scoreLabel: "Minore attrito" },
+            { label: "Prezzo simbolico o parziale", description: "Equilibrio tra percezione di valore e facilità di ingresso.", scoreLabel: "Attrito medio" },
+            { label: "Completamente a pagamento", description: "Filtra di più, ma rende la prenotazione più difficile senza forte autorità e reception.", scoreLabel: "Maggiore attrito" },
+          ],
+        },
+        digital: {
+          category: "Brand",
+          title: "Qual è il livello di presenza digitale della clinica?",
+          helper:
+            "Qui valutiamo se la clinica trasmette fiducia preventiva attraverso social media, Google, sito web e reputazione pubblica.",
+          impactNote:
+            "Una presenza digitale forte aumenta la facilità di contatto e riduce i no-show perché migliora la fiducia prima della visita.",
+          options: [
+            { label: "Forte su social e Google", description: "Brand attivo, autorità visibile e asset digitali che sostengono la decisione del paziente.", scoreLabel: "Alta autorità" },
+            { label: "Buona ma migliorabile", description: "La clinica trasmette una certa sicurezza, anche se non sfrutta ancora tutto il suo potenziale.", scoreLabel: "Autorità media" },
+            { label: "Debole o poco sviluppata", description: "La mancanza di presenza digitale aggiunge attrito al contatto e alla presenza.", scoreLabel: "Bassa autorità" },
+          ],
+        },
+        protocol: {
+          category: "Processo",
+          title: "Esiste un protocollo chiaro per la prima visita e la presentazione del trattamento?",
+          helper:
+            "Non chiediamo solo se il paziente viene trattato bene, ma se esiste un processo ripetibile di diagnosi, presentazione e avanzamento verso la chiusura.",
+          impactNote: "È una delle grandi leve di chiusura nei trattamenti di valore come l'implantologia.",
+          options: [
+            { label: "Sì, ben strutturato", description: "La clinica ha un flusso coerente per trasformare la fiducia in accettazione.", scoreLabel: "Processo forte" },
+            { label: "Parziale o dipendente dalla persona", description: "Ci sono buone pratiche, ma non un sistema stabile e replicabile.", scoreLabel: "Processo medio" },
+            { label: "No, ogni caso è gestito in modo diverso", description: "Questo di solito genera perdite silenziose nelle chiusure e decisioni rimandate.", scoreLabel: "Processo debole" },
+          ],
+        },
+        reception: {
+          category: "Reception",
+          title: "Come è organizzata la reception?",
+          helper:
+            "La conversione telefonica e la prenotazione dipendono molto dal fatto che esista una reception focalizzata o che l'attenzione sia dispersa tra varie attività.",
+          impactNote:
+            "Influisce soprattutto su contatto e prenotazione: meno multitasking di solito significa più conversazioni utili e più agende piene.",
+          options: [
+            { label: "Reception dedicata", description: "C'è un team dedicato a rispondere, organizzare agenda e mantenere il follow-up.", scoreLabel: "Alta conversione" },
+            { label: "Supporto condiviso", description: "La funzione esiste, ma compete con altre attività operative quotidiane.", scoreLabel: "Conversione media" },
+            { label: "Igienisti o personale multitasking", description: "La reception manca di focus e di solito perde velocità, qualità delle chiamate e costanza.", scoreLabel: "Bassa conversione" },
+          ],
+        },
+        speed: {
+          category: "Velocità",
+          title: "Con quale rapidità vengono contattati i nuovi lead?",
+          helper:
+            "La velocità di contatto è una variabile critica. Lo stesso lead vale molto meno quando viene gestito tardi o senza sistema.",
+          impactNote:
+            "È una delle variabili più dirette sul tasso reale di contatto e condiziona il resto del funnel.",
+          options: [
+            { label: "Nello stesso giorno", description: "La clinica risponde velocemente e intercetta meglio l'intenzione calda del paziente.", scoreLabel: "Contatto alto" },
+            { label: "Entro 24 ore", description: "È ancora ragionevole, anche se una parte dell'inerzia iniziale è già persa.", scoreLabel: "Contatto medio" },
+            { label: "Più tardi o in modo irregolare", description: "Qui spesso appare una perdita importante ancora prima della prenotazione.", scoreLabel: "Contatto basso" },
+          ],
+        },
+        financing: {
+          category: "Finanziamento",
+          title: "Il finanziamento è integrato in modo chiaro nel processo di vendita?",
+          helper:
+            "Non basta che esista in teoria. Conta se viene usato con sicurezza, rapidità e naturalezza per sbloccare le chiusure.",
+          impactNote:
+            "Un buon finanziamento ha un impatto molto chiaro sull'accettazione del trattamento e sul consumo di impianti.",
+          options: [
+            { label: "Sì, ben integrato", description: "La clinica usa il finanziamento come vero strumento di chiusura e accesso al trattamento.", scoreLabel: "Maggiore chiusura" },
+            { label: "Esiste, ma con uso limitato", description: "Aiuta in alcuni casi, ma non è ancora integrato in modo naturale nel processo.", scoreLabel: "Impatto medio" },
+            { label: "Non è integrato", description: "Questo rallenta le chiusure e peggiora l'accettazione nei trattamenti di ticket elevato.", scoreLabel: "Impatto basso" },
+          ],
+        },
+        actualVisits: {
+          category: "Base attuale",
+          title: "Quante prime visite implantari ha attualmente la clinica al mese?",
+          helper:
+            "Vogliamo capire il punto di partenza reale della clinica prima di stimare la crescita che potrebbe ottenere con una campagna attiva.",
+          impactNote:
+            "Questo dato ci permette di costruire lo scenario attuale e confrontarlo con la crescita realistica che la clinica potrebbe raggiungere.",
+          inputLabel: "Prime visite implantari",
+          placeholder: "Esempio: 15",
+        },
+        actualImplants: {
+          category: "Base attuale",
+          title: "Quanti impianti al mese colloca attualmente la clinica in media?",
+          helper:
+            "Questo volume ci aiuta a stimare la produzione implantare attuale e a misurare la crescita incrementale su una base reale.",
+          impactNote:
+            "Con questo dato calcoliamo il punto di partenza attuale della clinica in pazienti chiusi, impianti e ricavi mensili.",
+          inputLabel: "Media di impianti mensili posizionati",
+          placeholder: "Esempio: 9",
+        },
+        averageTicket: {
+          category: "Base attuale",
+          title: "Qual è il ticket medio per paziente di implantologia della clinica?",
+          helper:
+            "Questo dato ci aiuta a tradurre il volume di pazienti e impianti in un fatturato realistico associato all'implantologia.",
+          impactNote:
+            "Con questo ticket medio calcoliamo il fatturato attuale e il fatturato potenziale legato alla crescita implantare.",
+          inputLabel: "Ticket medio per paziente di implantologia",
+          placeholder: "Esempio: 2900",
+        },
       },
-      {
-        value: "average",
-        label: "Correcta pero mejorable",
-        description: "La clínica transmite cierta seguridad, aunque todavía no capitaliza todo su potencial.",
-        scoreLabel: "Autoridad media",
-      },
-      {
-        value: "weak",
-        label: "Débil o poco trabajada",
-        description: "La falta de presencia digital añade fricción al contacto y a la asistencia.",
-        scoreLabel: "Autoridad baja",
-      },
-    ],
-  },
-  {
-    id: "protocol",
-    category: "Proceso",
-    title: "¿Existe un protocolo claro de primera visita y presentación del tratamiento?",
-    helper:
-      "No preguntamos solo si atienden bien, sino si existe un proceso repetible de diagnóstico, presentación y avance hacia cierre.",
-    impactNote:
-      "Es una de las grandes palancas del cierre en tratamientos de valor como implantología.",
-    options: [
-      {
-        value: "structured",
-        label: "Sí, bien estructurado",
-        description: "La clínica tiene un flujo consistente para convertir confianza en aceptación.",
-        scoreLabel: "Proceso fuerte",
-      },
-      {
-        value: "partial",
-        label: "Parcial o dependiente de la persona",
-        description: "Hay buenas prácticas, pero no una sistemática estable y replicable.",
-        scoreLabel: "Proceso medio",
-      },
-      {
-        value: "none",
-        label: "No, cada caso se gestiona distinto",
-        description: "Eso suele generar pérdida silenciosa de cierres y decisiones aplazadas.",
-        scoreLabel: "Proceso débil",
-      },
-    ],
-  },
-  {
-    id: "reception",
-    category: "Recepción",
-    title: "¿Cómo está organizada la recepción?",
-    helper:
-      "La conversión telefónica y el agendado dependen mucho de si existe una recepción enfocada o si la atención está dispersa entre varias tareas.",
-    impactNote:
-      "Afecta sobre todo a contacto y cita: menos multitarea suele traducirse en más conversaciones útiles y más agendas cerradas.",
-    options: [
-      {
-        value: "dedicated",
-        label: "Recepción exclusiva",
-        description: "Hay equipo dedicado a atender, responder, ordenar agenda y sostener seguimiento.",
-        scoreLabel: "Alta conversión",
-      },
-      {
-        value: "shared",
-        label: "Apoyo compartido",
-        description: "La función existe, pero compite con otras tareas operativas del día a día.",
-        scoreLabel: "Conversión media",
-      },
-      {
-        value: "multitask",
-        label: "Higienistas o personal multitarea",
-        description: "La recepción no tiene foco y suele perder velocidad, calidad de llamada y consistencia.",
-        scoreLabel: "Conversión baja",
-      },
-    ],
-  },
-  {
-    id: "speed",
-    category: "Velocidad",
-    title: "¿Con qué rapidez suelen contactar los nuevos leads?",
-    helper:
-      "La velocidad de contacto es una variable crítica. Un mismo lead vale mucho menos cuando se atiende tarde o sin sistemática.",
-    impactNote:
-      "Es una de las variables más directas sobre el porcentaje de contacto real y condiciona el resto del embudo.",
-    options: [
-      {
-        value: "sameDay",
-        label: "En el mismo día",
-        description: "La clínica responde rápido y captura mejor la intención caliente del paciente.",
-        scoreLabel: "Contacto alto",
-      },
-      {
-        value: "nextDay",
-        label: "Dentro de 24 horas",
-        description: "Sigue siendo razonable, aunque ya se pierde parte de la inercia inicial.",
-        scoreLabel: "Contacto medio",
-      },
-      {
-        value: "late",
-        label: "Más tarde o de forma irregular",
-        description: "Aquí suele aparecer una fuga importante de oportunidades antes incluso del agendado.",
-        scoreLabel: "Contacto bajo",
-      },
-    ],
-  },
-  {
-    id: "financing",
-    category: "Financiación",
-    title: "¿La financiación está integrada de forma clara en la venta?",
-    helper:
-      "No basta con que exista en teoría. Lo relevante es si se utiliza con seguridad, rapidez y naturalidad para desbloquear cierres.",
-    impactNote:
-      "La financiación correcta impacta de forma muy clara sobre aceptación de tratamiento y consumo de implantes.",
-    options: [
-      {
-        value: "strong",
-        label: "Sí, bien integrada",
-        description: "La clínica usa financiación como herramienta real de cierre y acceso al tratamiento.",
-        scoreLabel: "Mayor cierre",
-      },
-      {
-        value: "limited",
-        label: "Existe, pero con uso limitado",
-        description: "Ayuda en algunos casos, aunque todavía no está incorporada al proceso de forma natural.",
-        scoreLabel: "Impacto medio",
-      },
-      {
-        value: "none",
-        label: "No está integrada",
-        description: "Esto frena cierres y empeora la aceptación en tratamientos de ticket elevado.",
-        scoreLabel: "Impacto bajo",
-      },
-    ],
-  },
-];
-
-const locationVisuals = {
-  metro: {
-    caption: "Grandes áreas metropolitanas principales del país.",
-    zones: [
-      { cx: 146, cy: 157, rx: 34, ry: 34, rotate: 0 },
-      { cx: 244, cy: 104, rx: 32, ry: 28, rotate: -12 },
-    ],
-  },
-  capital: {
-    caption: "Capitales provinciales relevantes y polos urbanos secundarios.",
-    zones: [
-      { cx: 223, cy: 183, rx: 48, ry: 36, rotate: 20 },
-      { cx: 179, cy: 122, rx: 34, ry: 26, rotate: -6 },
-      { cx: 126, cy: 233, rx: 44, ry: 34, rotate: -18 },
-      { cx: 177, cy: 74, rx: 30, ry: 20, rotate: 8 },
-    ],
-  },
-  city: {
-    caption: "Ciudades intermedias con peso regional y tamaño medio.",
-    zones: [
-      { cx: 93, cy: 100, rx: 40, ry: 34, rotate: -28 },
-      { cx: 139, cy: 112, rx: 44, ry: 28, rotate: -8 },
-      { cx: 188, cy: 245, rx: 36, ry: 28, rotate: 12 },
-      { cx: 119, cy: 74, rx: 34, ry: 18, rotate: 0 },
-    ],
-  },
-  rural: {
-    caption: "Cabeceras de comarca, poblaciones pequeñas y entorno rural disperso.",
-    zones: [
-      { cx: 102, cy: 206, rx: 42, ry: 34, rotate: -12 },
-      { cx: 170, cy: 173, rx: 58, ry: 42, rotate: 6 },
-      { cx: 181, cy: 230, rx: 40, ry: 30, rotate: 14 },
-      { cx: 93, cy: 68, rx: 28, ry: 20, rotate: -20 },
-    ],
+    },
   },
 };
 
-Object.assign(locationVisuals, {
-  metro: {
-    caption: "Grandes areas metropolitanas principales del pais.",
-    regions: [
-      {
-        d: "M150 134c12-11 31-14 44-6c12 8 14 24 4 36c-12 13-33 15-47 5c-11-8-12-24-1-35z",
-        cx: 173,
-        cy: 147,
-        r: 17,
-      },
-      {
-        d: "M256 94c10-10 28-12 40-4c12 8 14 23 4 34c-11 12-30 14-42 5c-11-8-12-23-2-35z",
-        cx: 278,
-        cy: 108,
-        r: 16,
-      },
-    ],
-  },
-  capital: {
-    caption: "Capitales relevantes y polos urbanos secundarios de alta actividad.",
-    regions: [
-      {
-        d: "M111 228c16-14 42-18 60-10c16 8 22 26 12 42c-13 18-41 24-62 15c-18-8-24-30-10-47z",
-        cx: 142,
-        cy: 250,
-        r: 19,
-      },
-      {
-        d: "M211 86c12-10 31-13 44-7c12 7 15 22 7 33c-10 13-30 18-45 11c-14-7-17-24-6-37z",
-        cx: 234,
-        cy: 103,
-        r: 15,
-      },
-      {
-        d: "M239 167c15-13 39-17 56-9c16 8 20 25 10 40c-13 18-40 24-59 14c-18-9-21-29-7-45z",
-        cx: 270,
-        cy: 191,
-        r: 18,
-      },
-      {
-        d: "M167 112c11-10 27-13 39-7c11 6 15 18 10 28c-8 13-24 19-38 15c-14-4-20-20-11-36z",
-        cx: 187,
-        cy: 127,
-        r: 14,
-      },
-    ],
-  },
-  city: {
-    caption: "Ciudades intermedias con peso regional y traccion de mercado medio.",
-    regions: [
-      {
-        d: "M58 65c13-12 35-18 52-13c15 5 21 19 17 34c-6 19-27 31-49 28c-21-2-32-24-20-49z",
-        cx: 85,
-        cy: 86,
-        r: 18,
-      },
-      {
-        d: "M105 92c17-13 43-18 60-11c15 7 20 21 15 36c-7 18-31 28-56 24c-23-3-34-26-19-49z",
-        cx: 138,
-        cy: 112,
-        r: 19,
-      },
-      {
-        d: "M144 150c17-14 44-19 63-11c17 7 23 24 16 41c-10 22-38 33-64 27c-24-5-34-30-15-57z",
-        cx: 177,
-        cy: 177,
-        r: 20,
-      },
-      {
-        d: "M164 233c14-12 35-16 49-10c13 6 18 18 13 30c-8 16-28 24-47 21c-18-4-27-22-15-41z",
-        cx: 190,
-        cy: 248,
-        r: 16,
-      },
-    ],
-  },
-  rural: {
-    caption: "Cabeceras de comarca, poblaciones pequenas y entorno rural disperso.",
-    regions: [
-      {
-        d: "M72 86c29-24 79-31 114-16c30 13 43 41 30 69c-15 33-60 52-108 48c-44-4-69-42-54-101z",
-        cx: 128,
-        cy: 130,
-        r: 24,
-      },
-      {
-        d: "M97 191c24-20 64-28 94-20c27 8 39 30 34 57c-7 32-41 56-84 60c-42 4-72-18-75-53c-2-18 9-33 31-44z",
-        cx: 155,
-        cy: 224,
-        r: 23,
-      },
-      {
-        d: "M201 164c20-15 52-19 74-11c20 8 29 25 25 44c-6 28-34 48-71 50c-37 2-61-16-61-44c0-17 10-29 33-39z",
-        cx: 239,
-        cy: 194,
-        r: 21,
-      },
-    ],
-  },
-});
+const questionDefinitions = [
+  { id: "location", type: "options", values: ["metro", "capital", "city", "rural"] },
+  { id: "actualVisits", type: "number", min: 0, max: 60, step: 1, defaultValue: 15 },
+  { id: "actualImplants", type: "number", min: 0, max: 80, step: 1, defaultValue: 9 },
+  { id: "averageTicket", type: "number", min: 1000, max: 6000, step: 100, defaultValue: 2900, suffix: "€" },
+  { id: "cabinets", type: "options", values: ["1-2", "3-4", "5-6", "7+"] },
+  { id: "tac", type: "options", values: ["full", "scanExternal", "external"] },
+  { id: "advisor", type: "options", values: ["yes", "no"] },
+  { id: "visitPrice", type: "options", values: ["free", "partial", "paid"] },
+  { id: "digital", type: "options", values: ["strong", "average", "weak"] },
+  { id: "protocol", type: "options", values: ["structured", "partial", "none"] },
+  { id: "reception", type: "options", values: ["dedicated", "shared", "multitask"] },
+  { id: "speed", type: "options", values: ["sameDay", "nextDay", "late"] },
+  { id: "financing", type: "options", values: ["strong", "limited", "none"] },
+];
+
+const questions = questionDefinitions.map((definition) => ({
+  id: definition.id,
+  type: definition.type,
+  min: definition.min,
+  max: definition.max,
+  step: definition.step,
+  defaultValue: definition.defaultValue,
+  suffix: definition.suffix || "",
+  category: "",
+  title: "",
+  helper: "",
+  impactNote: "",
+  inputLabel: "",
+  placeholder: "",
+  options:
+    definition.type === "options"
+      ? definition.values.map((value) => ({
+          value,
+          label: "",
+          description: "",
+          scoreLabel: "",
+        }))
+      : [],
+}));
+
+const optimizedTargets = {
+  digital: "strong",
+  protocol: "structured",
+  reception: "dedicated",
+  speed: "sameDay",
+  financing: "strong",
+  tac: "full",
+  advisor: "yes",
+  visitPrice: "free",
+};
 
 const config = {
   mediaBudget: 450,
   serviceFee: 800,
   location: {
-    metro: { cpl: 12.6, competition: "Alta", budgetFactor: 1.15, driver: "Mercado Tier 1 con presión publicitaria superior" },
-    capital: { cpl: 7.4, competition: "Media-alta", contact: 0.0 },
-    city: { cpl: 5.6, competition: "Media", contact: 0.02 },
-    rural: { cpl: 4.7, competition: "Baja", contact: 0.03 },
+    metro: { cpl: 7.5, competition: "high", contact: 0 },
+    capital: { cpl: 6.0, competition: "mediumHigh", contact: 0.0 },
+    city: { cpl: 5.2, competition: "medium", contact: 0.02 },
+    rural: { cpl: 4.6, competition: "low", contact: 0.03 },
   },
   cabinets: {
-    "1-2": { budget: 900, capacityVisits: 20, implantsPerPatient: 2.2, scaleLabel: "Estructura compacta" },
-    "3-4": { budget: 1450, capacityVisits: 34, implantsPerPatient: 2.6, scaleLabel: "Clínica en expansión" },
-    "5-6": { budget: 2200, capacityVisits: 52, implantsPerPatient: 2.9, scaleLabel: "Operación consolidada" },
-    "7+": { budget: 3200, capacityVisits: 72, implantsPerPatient: 3.2, scaleLabel: "Clínica de alta capacidad" },
+    "1-2": { capacityVisits: 20, implantsPerPatient: 3 },
+    "3-4": { capacityVisits: 34, implantsPerPatient: 3 },
+    "5-6": { capacityVisits: 52, implantsPerPatient: 3 },
+    "7+": { capacityVisits: 72, implantsPerPatient: 3 },
   },
   tac: {
-    yes: { close: 0.05 },
-    no: { close: -0.03 },
+    full: { close: 0.05 },
+    scanExternal: { close: 0.01 },
+    external: { close: -0.05 },
   },
   advisor: {
     yes: { close: 0.04 },
@@ -458,9 +1210,9 @@ const config = {
     paid: { appointment: -0.03, attendance: -0.05 },
   },
   digital: {
-    strong: { contact: 0.06, attendance: 0.06, close: 0.02, label: "Autoridad robusta" },
-    average: { contact: 0.02, attendance: 0.02, close: 0.005, label: "Marca correcta" },
-    weak: { contact: 0.0, attendance: 0.0, close: 0.0, label: "Marca débil" },
+    strong: { contact: 0.06, attendance: 0.06, close: 0.02 },
+    average: { contact: 0.02, attendance: 0.02, close: 0.005 },
+    weak: { contact: 0.0, attendance: 0.0, close: 0.0 },
   },
   protocol: {
     structured: { close: 0.08, appointment: 0.02 },
@@ -468,9 +1220,9 @@ const config = {
     none: { close: 0.0, appointment: 0.0 },
   },
   reception: {
-    dedicated: { contact: 0.1, appointment: 0.09, label: "Recepción enfocada" },
-    shared: { contact: 0.0, appointment: 0.04, label: "Recepción mixta" },
-    multitask: { contact: -0.08, appointment: 0.0, label: "Recepción dispersa" },
+    dedicated: { contact: 0.1, appointment: 0.09 },
+    shared: { contact: 0.0, appointment: 0.04 },
+    multitask: { contact: -0.08, appointment: 0.0 },
   },
   speed: {
     sameDay: { contact: 0.09 },
@@ -492,53 +1244,54 @@ const baseMetrics = {
   ticket: 2900,
 };
 
-Object.assign(config.location, {
-  metro: {
-    ...config.location.metro,
-    cpl: 7.5,
-    budgetFactor: 1.0,
-  },
-  capital: {
-    ...config.location.capital,
-    cpl: 6.0,
-  },
-  city: {
-    ...config.location.city,
-    cpl: 5.2,
-  },
-  rural: {
-    ...config.location.rural,
-    cpl: 4.6,
-  },
-});
-
-Object.keys(config.cabinets).forEach((key) => {
-  config.cabinets[key].implantsPerPatient = 3;
-});
-
-const optimizedTargets = {
-  digital: "strong",
-  protocol: "structured",
-  reception: "dedicated",
-  speed: "sameDay",
-  financing: "strong",
-  tac: "yes",
-  advisor: "yes",
-  visitPrice: "free",
-};
-
 const state = {
   currentStep: 0,
   answers: {},
   isCalculating: false,
   loadingTimer: null,
+  language: localStorage.getItem("calculatorLanguage") || "es",
+  lastScenarioAnswers: null,
 };
 
 const elements = {
-  questionContainer: document.getElementById("questionContainer"),
+  pageDescription: document.getElementById("pageDescription"),
+  brandSubtitle: document.getElementById("brandSubtitle"),
+  brandCollabLabel: document.getElementById("brandCollabLabel"),
+  navStartSimulation: document.getElementById("navStartSimulation"),
+  heroEyebrow: document.getElementById("heroEyebrow"),
+  heroTitle: document.getElementById("heroTitle"),
+  heroText: document.getElementById("heroText"),
+  heroSignatureLabel: document.getElementById("heroSignatureLabel"),
+  heroPrimaryCtaDesktop: document.getElementById("heroPrimaryCtaDesktop"),
+  heroPrimaryCtaMobile: document.getElementById("heroPrimaryCtaMobile"),
+  heroSecondaryCta: document.getElementById("heroSecondaryCta"),
+  heroMetricOne: document.getElementById("heroMetricOne"),
+  heroMetricTwo: document.getElementById("heroMetricTwo"),
+  heroMetricThree: document.getElementById("heroMetricThree"),
+  productMiniLabel: document.getElementById("productMiniLabel"),
+  productTitle: document.getElementById("productTitle"),
+  productBody: document.getElementById("productBody"),
+  heroPanelCalcLabel: document.getElementById("heroPanelCalcLabel"),
+  heroPanelCalcItemOne: document.getElementById("heroPanelCalcItemOne"),
+  heroPanelCalcItemTwo: document.getElementById("heroPanelCalcItemTwo"),
+  heroPanelCalcItemThree: document.getElementById("heroPanelCalcItemThree"),
+  heroPanelCalcItemFour: document.getElementById("heroPanelCalcItemFour"),
+  heroAudienceLabel: document.getElementById("heroAudienceLabel"),
+  heroAudienceBody: document.getElementById("heroAudienceBody"),
+  pillarOneTitle: document.getElementById("pillarOneTitle"),
+  pillarOneBody: document.getElementById("pillarOneBody"),
+  pillarTwoTitle: document.getElementById("pillarTwoTitle"),
+  pillarTwoBody: document.getElementById("pillarTwoBody"),
+  pillarThreeTitle: document.getElementById("pillarThreeTitle"),
+  pillarThreeBody: document.getElementById("pillarThreeBody"),
+  simulatorEyebrow: document.getElementById("simulatorEyebrow"),
+  simulatorTitle: document.getElementById("simulatorTitle"),
+  simulatorBody: document.getElementById("simulatorBody"),
+  profileEyebrow: document.getElementById("profileEyebrow"),
   stepLabel: document.getElementById("stepLabel"),
   stepCategory: document.getElementById("stepCategory"),
   progressBar: document.getElementById("progressBar"),
+  questionContainer: document.getElementById("questionContainer"),
   prevButton: document.getElementById("prevButton"),
   nextButton: document.getElementById("nextButton"),
   profileHeadline: document.getElementById("profileHeadline"),
@@ -546,16 +1299,42 @@ const elements = {
   currentSummary: document.getElementById("currentSummary"),
   impactNote: document.getElementById("impactNote"),
   resultsSection: document.getElementById("results"),
-  kpiCards: document.getElementById("kpiCards"),
-  funnelChart: document.getElementById("funnelChart"),
-  comparisonChart: document.getElementById("comparisonChart"),
-  resultsTable: document.getElementById("resultsTable"),
-  resetButton: document.getElementById("resetButton"),
-  restartScenarioLink: document.getElementById("restartScenarioLink"),
+  resultsEyebrow: document.getElementById("resultsEyebrow"),
+  resultsTitle: document.getElementById("resultsTitle"),
+  resultsBody: document.getElementById("resultsBody"),
+  insightEyebrow: document.getElementById("insightEyebrow"),
   primaryInsightTitle: document.getElementById("primaryInsightTitle"),
   primaryInsightBody: document.getElementById("primaryInsightBody"),
   insightList: document.getElementById("insightList"),
+  kpiCards: document.getElementById("kpiCards"),
+  funnelEyebrow: document.getElementById("funnelEyebrow"),
+  funnelTitle: document.getElementById("funnelTitle"),
+  funnelChip: document.getElementById("funnelChip"),
+  funnelChart: document.getElementById("funnelChart"),
+  comparisonEyebrow: document.getElementById("comparisonEyebrow"),
+  comparisonTitle: document.getElementById("comparisonTitle"),
+  comparisonChip: document.getElementById("comparisonChip"),
+  comparisonChart: document.getElementById("comparisonChart"),
+  impactEyebrow: document.getElementById("impactEyebrow"),
+  impactTitle: document.getElementById("impactTitle"),
+  impactChip: document.getElementById("impactChip"),
+  impactMatrix: document.getElementById("impactMatrix"),
+  tableEyebrow: document.getElementById("tableEyebrow"),
+  tableTitle: document.getElementById("tableTitle"),
+  resultsTable: document.getElementById("resultsTable"),
+  resetButton: document.getElementById("resetButton"),
+  closingEyebrow: document.getElementById("closingEyebrow"),
+  closingTitle: document.getElementById("closingTitle"),
+  closingBody: document.getElementById("closingBody"),
+  restartScenarioLink: document.getElementById("restartScenarioLink"),
+  reviewMethodologyLink: document.getElementById("reviewMethodologyLink"),
+  tableHeaders: Array.from(document.querySelectorAll("thead th")),
+  languageButtons: Array.from(document.querySelectorAll("[data-lang]")),
 };
+
+function getCopy() {
+  return i18n[state.language].static;
+}
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
@@ -566,8 +1345,17 @@ function round(value, decimals = 0) {
   return Math.round(value * factor) / factor;
 }
 
+function formatTemplate(template, replacements) {
+  return Object.entries(replacements).reduce(
+    (result, [key, value]) => result.replaceAll(`{${key}}`, value),
+    template
+  );
+}
+
 function formatNumber(value) {
-  return new Intl.NumberFormat("es-ES", { maximumFractionDigits: 0 }).format(Math.round(value));
+  return new Intl.NumberFormat(i18n[state.language].locale, {
+    maximumFractionDigits: 0,
+  }).format(Math.round(value));
 }
 
 function formatPercent(value) {
@@ -575,253 +1363,221 @@ function formatPercent(value) {
 }
 
 function formatCurrency(value) {
-  return new Intl.NumberFormat("es-ES", {
+  return new Intl.NumberFormat(i18n[state.language].locale, {
     style: "currency",
     currency: "EUR",
     maximumFractionDigits: 0,
   }).format(value);
 }
 
+function syncQuestionsWithLanguage() {
+  const localizedQuestions = i18n[state.language].static.questions;
+
+  questions.forEach((question) => {
+    const localized = localizedQuestions[question.id];
+    question.category = localized.category;
+    question.title = localized.title;
+    question.helper = localized.helper;
+    question.impactNote = localized.impactNote;
+    question.inputLabel = localized.inputLabel || "";
+    question.placeholder = localized.placeholder || "";
+
+    if (question.type === "options") {
+      question.options.forEach((option, index) => {
+        const localizedOption = localized.options[index];
+        option.label = localizedOption.label;
+        option.description = localizedOption.description;
+        option.scoreLabel = localizedOption.scoreLabel;
+      });
+    }
+  });
+}
+
+function getQuestion(questionId) {
+  return questions.find((question) => question.id === questionId);
+}
+
 function getOption(questionId, value) {
-  return questions.find((question) => question.id === questionId)?.options.find((option) => option.value === value);
+  return getQuestion(questionId)?.options.find((option) => option.value === value);
 }
 
 function getSelectedLabel(questionId) {
+  const question = getQuestion(questionId);
   const answer = state.answers[questionId];
+
+  if (question?.type === "number") {
+    return Number.isFinite(answer) ? `${formatNumber(answer)}${question.suffix ? ` ${question.suffix}` : ""}` : "—";
+  }
+
   return answer ? getOption(questionId, answer)?.label || "—" : "—";
 }
 
-function renderLocationMap(selectedTier) {
-  const activeTier = selectedTier && locationVisuals[selectedTier] ? selectedTier : "metro";
-  const zonesMarkup = locationVisuals[activeTier].zones
-    .map(
-      (zone, index) => `
-        <g class="map-zone zone-${index + 1}" style="--delay:${index * 0.28}s">
-          <ellipse class="map-zone-glow" cx="${zone.cx}" cy="${zone.cy}" rx="${zone.rx}" ry="${zone.ry}" transform="rotate(${zone.rotate} ${zone.cx} ${zone.cy})"></ellipse>
-          <ellipse class="map-zone-core" cx="${zone.cx}" cy="${zone.cy}" rx="${zone.rx * 0.62}" ry="${zone.ry * 0.62}" transform="rotate(${zone.rotate} ${zone.cx} ${zone.cy})"></ellipse>
-          <ellipse class="map-zone-ring" cx="${zone.cx}" cy="${zone.cy}" rx="${zone.rx * 0.82}" ry="${zone.ry * 0.82}" transform="rotate(${zone.rotate} ${zone.cx} ${zone.cy})"></ellipse>
-        </g>
-      `
-    )
-    .join("");
+function getLabelFromAnswers(questionId, answers) {
+  const question = getQuestion(questionId);
+  const answer = answers[questionId];
 
-  return `
-    <div class="location-visual">
-      <div class="location-map-card">
-        <div class="location-map-copy">
-          <p class="mini-label">Mapa territorial</p>
-          <strong>${getOption("location", activeTier)?.label || "Tier geográfico"}</strong>
-          <span>${locationVisuals[activeTier].caption}</span>
-        </div>
-        <svg viewBox="0 0 320 300" class="spain-map" aria-hidden="true">
-          <defs>
-            <clipPath id="spain-clip">
-              <path
-                d="M41 72
-                L69 52 L120 39 L161 37 L205 42 L244 57 L274 76
-                L285 107 L281 139 L272 170 L286 198 L270 224
-                L261 252 L232 274 L193 292 L168 277 L148 292
-                L113 279 L89 257 L65 229 L44 211 L31 176
-                L28 145 L31 118 Z"
-              ></path>
-            </clipPath>
-          </defs>
-          <g clip-path="url(#spain-clip)">
-            <rect x="0" y="0" width="320" height="300" class="spain-map-fill"></rect>
-            ${zonesMarkup}
-          </g>
-          <path
-            class="spain-map-shape"
-            d="M41 72
-            L69 52 L120 39 L161 37 L205 42 L244 57 L274 76
-            L285 107 L281 139 L272 170 L286 198 L270 224
-            L261 252 L232 274 L193 292 L168 277 L148 292
-            L113 279 L89 257 L65 229 L44 211 L31 176
-            L28 145 L31 118 Z"
-          ></path>
-          <path class="spain-map-island canary-left" d="M28 262 q8 -5 16 0 q-8 7 -16 0z"></path>
-          <path class="spain-map-island canary-right" d="M49 267 q7 -4 13 0 q-6 6 -13 0z"></path>
-          <path class="spain-map-island balearic-main" d="M274 160 q8 -4 16 0 q-7 6 -16 0z"></path>
-          <path class="spain-map-island balearic-small" d="M292 150 q4 -2 8 0 q-3 4 -8 0z"></path>
-        </svg>
-      </div>
-    </div>
-  `;
-}
-
-function renderLocationMap(selectedTier) {
-  const activeTier = selectedTier && locationVisuals[selectedTier] ? selectedTier : "metro";
-  const regionsMarkup = (locationVisuals[activeTier].regions || [])
-    .map(
-      (region, index) => `
-        <g class="map-zone zone-${index + 1}" style="--delay:${index * 0.28}s">
-          <path class="map-zone-area" d="${region.d}"></path>
-          <path class="map-zone-glow" d="${region.d}"></path>
-          <circle class="map-zone-core" cx="${region.cx}" cy="${region.cy}" r="${region.r}"></circle>
-          <circle class="map-zone-ring" cx="${region.cx}" cy="${region.cy}" r="${region.r * 0.92}"></circle>
-        </g>
-      `
-    )
-    .join("");
-
-  return `
-    <div class="location-visual">
-      <div class="location-map-card">
-        <div class="location-map-copy">
-          <p class="mini-label">Mapa territorial</p>
-          <strong>${getOption("location", activeTier)?.label || "Tier geografico"}</strong>
-          <span>${locationVisuals[activeTier].caption}</span>
-        </div>
-        <svg viewBox="0 0 370 330" class="spain-map" aria-hidden="true">
-          <defs>
-            <clipPath id="spain-clip">
-              <path
-                d="M41 122
-                L47 97 L55 79 L60 62 L70 48 L84 39 L96 28
-                L118 22 L145 14 L180 11 L217 13 L250 21
-                L280 34 L306 48 L329 66 L344 87 L350 111
-                L349 132 L344 153 L338 175 L333 193 L338 205
-                L331 220 L323 237 L318 257 L304 275 L285 291
-                L260 305 L234 314 L210 322 L190 308 L171 318
-                L145 323 L120 317 L99 304 L84 289 L73 270
-                L64 252 L53 240 L43 222 L37 199 L33 174
-                L33 150 L35 135 Z"
-              ></path>
-            </clipPath>
-          </defs>
-          <g clip-path="url(#spain-clip)">
-            <rect x="0" y="0" width="370" height="330" class="spain-map-fill"></rect>
-            <path class="spain-map-grid" d="M62 84 C119 57 191 47 267 65 C301 73 326 88 343 106"></path>
-            <path class="spain-map-grid" d="M49 150 C115 132 187 128 258 138 C301 145 327 160 343 179"></path>
-            <path class="spain-map-grid" d="M61 219 C121 200 186 198 245 207 C281 213 308 227 325 244"></path>
-            <rect class="spain-map-scan" x="-150" y="0" width="110" height="330"></rect>
-            ${regionsMarkup}
-          </g>
-          <path
-            class="spain-map-shape"
-            d="M41 122
-            L47 97 L55 79 L60 62 L70 48 L84 39 L96 28
-            L118 22 L145 14 L180 11 L217 13 L250 21
-            L280 34 L306 48 L329 66 L344 87 L350 111
-            L349 132 L344 153 L338 175 L333 193 L338 205
-            L331 220 L323 237 L318 257 L304 275 L285 291
-            L260 305 L234 314 L210 322 L190 308 L171 318
-            L145 323 L120 317 L99 304 L84 289 L73 270
-            L64 252 L53 240 L43 222 L37 199 L33 174
-            L33 150 L35 135 Z"
-          ></path>
-          <path class="spain-map-island canary-left" d="M50 292 q11 -6 22 0 q-10 9 -22 0z"></path>
-          <path class="spain-map-island canary-right" d="M82 299 q9 -5 17 0 q-8 7 -17 0z"></path>
-          <path class="spain-map-island balearic-main" d="M325 181 q12 -6 24 0 q-11 9 -24 0z"></path>
-          <path class="spain-map-island balearic-small" d="M343 168 q6 -3 12 0 q-5 6 -12 0z"></path>
-        </svg>
-      </div>
-    </div>
-  `;
-}
-
-function renderQuestion() {
-  if (state.isCalculating) {
-    return;
+  if (question?.type === "number") {
+    return Number.isFinite(answer) ? `${formatNumber(answer)}${question.suffix ? ` ${question.suffix}` : ""}` : "—";
   }
 
-  const question = questions[state.currentStep];
-  const answer = state.answers[question.id];
+  return answer ? getOption(questionId, answer)?.label || "—" : "—";
+}
 
-  elements.stepLabel.textContent = `Paso ${state.currentStep + 1} de ${questions.length}`;
-  elements.stepCategory.textContent = question.category;
-  elements.progressBar.style.width = `${((state.currentStep + 1) / questions.length) * 100}%`;
+function applyStaticTranslations() {
+  const copy = getCopy();
 
-  const optionsMarkup = question.options
-    .map(
-      (option) => `
-        <button class="option-card ${answer === option.value ? "selected" : ""}" type="button" data-option-value="${option.value}" aria-pressed="${answer === option.value}">
-          <span>
-            <strong>${option.label}</strong>
-            <span class="option-description">${option.description}</span>
-          </span>
-          <span class="option-score">${option.scoreLabel}</span>
-        </button>
-      `
-    )
-    .join("");
+  document.documentElement.lang = state.language;
+  document.title = i18n[state.language].metaTitle;
+  elements.pageDescription.setAttribute("content", i18n[state.language].metaDescription);
 
-  elements.questionContainer.innerHTML = `
-    <div class="question-category">${question.category}</div>
-    <h3 class="question-title">${question.title}</h3>
-    <p class="question-helper">${question.helper}</p>
-    <div class="options-grid">${optionsMarkup}</div>
+  elements.brandSubtitle.textContent = copy.brandSubtitle;
+  elements.brandCollabLabel.textContent = copy.brandCollabLabel;
+  elements.navStartSimulation.textContent = copy.navStartSimulation;
+  elements.heroEyebrow.textContent = copy.heroEyebrow;
+  elements.heroTitle.innerHTML = copy.heroTitle;
+  elements.heroText.textContent = copy.heroText;
+  elements.heroSignatureLabel.textContent = copy.heroSignatureLabel;
+  elements.heroPrimaryCtaDesktop.textContent = copy.heroPrimaryCtaDesktop;
+  elements.heroPrimaryCtaMobile.textContent = copy.heroPrimaryCtaMobile;
+  elements.heroSecondaryCta.textContent = copy.heroSecondaryCta;
+  elements.heroMetricOne.textContent = copy.heroMetricOne;
+  elements.heroMetricTwo.textContent = copy.heroMetricTwo;
+  elements.heroMetricThree.textContent = copy.heroMetricThree;
+  elements.productMiniLabel.textContent = copy.productMiniLabel;
+  elements.productTitle.textContent = copy.productTitle;
+  elements.productBody.textContent = copy.productBody;
+  elements.heroPanelCalcLabel.textContent = copy.heroPanelCalcLabel;
+  elements.heroPanelCalcItemOne.textContent = copy.heroPanelCalcItemOne;
+  elements.heroPanelCalcItemTwo.textContent = copy.heroPanelCalcItemTwo;
+  elements.heroPanelCalcItemThree.textContent = copy.heroPanelCalcItemThree;
+  elements.heroPanelCalcItemFour.textContent = copy.heroPanelCalcItemFour;
+  elements.heroAudienceLabel.textContent = copy.heroAudienceLabel;
+  elements.heroAudienceBody.textContent = copy.heroAudienceBody;
+  elements.pillarOneTitle.textContent = copy.pillarOneTitle;
+  elements.pillarOneBody.textContent = copy.pillarOneBody;
+  elements.pillarTwoTitle.textContent = copy.pillarTwoTitle;
+  elements.pillarTwoBody.textContent = copy.pillarTwoBody;
+  elements.pillarThreeTitle.textContent = copy.pillarThreeTitle;
+  elements.pillarThreeBody.textContent = copy.pillarThreeBody;
+  elements.simulatorEyebrow.textContent = copy.simulatorEyebrow;
+  elements.simulatorTitle.textContent = copy.simulatorTitle;
+  elements.simulatorBody.textContent = copy.simulatorBody;
+  elements.profileEyebrow.textContent = copy.profileEyebrow;
+  elements.resultsEyebrow.textContent = copy.resultsEyebrow;
+  elements.resultsTitle.textContent = copy.resultsTitle;
+  elements.resultsBody.textContent = copy.resultsBody;
+  elements.insightEyebrow.textContent = copy.insightEyebrow;
+  elements.funnelEyebrow.textContent = copy.funnelEyebrow;
+  elements.funnelTitle.textContent = copy.funnelTitle;
+  elements.funnelChip.textContent = copy.funnelChip;
+  elements.comparisonEyebrow.textContent = copy.comparisonEyebrow;
+  elements.comparisonTitle.textContent = copy.comparisonTitle;
+  elements.comparisonChip.textContent = copy.comparisonChip;
+  elements.impactEyebrow.textContent = copy.impactEyebrow;
+  elements.impactTitle.textContent = copy.impactTitle;
+  elements.impactChip.textContent = copy.impactChip;
+  elements.tableEyebrow.textContent = copy.tableEyebrow;
+  elements.tableTitle.textContent = copy.tableTitle;
+  elements.resetButton.textContent = copy.buttons.reset;
+  elements.closingEyebrow.textContent = copy.closingEyebrow;
+  elements.closingTitle.textContent = copy.closingTitle;
+  elements.closingBody.textContent = copy.closingBody;
+  elements.restartScenarioLink.textContent = copy.buttons.restartScenario;
+  elements.reviewMethodologyLink.textContent = copy.reviewMethodologyLink;
+  copy.tableHeaders.forEach((text, index) => {
+    if (elements.tableHeaders[index]) {
+      elements.tableHeaders[index].textContent = text;
+    }
+  });
+}
+
+function updateLanguageButtons() {
+  elements.languageButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.lang === state.language);
+  });
+}
+
+function renderCurrentSummary() {
+  const copy = getCopy();
+  elements.currentSummary.innerHTML = `
+    ${questions
+      .map((question, index) => {
+        const answerLabel = getSelectedLabel(question.id);
+        const isAnswered = answerLabel !== "—";
+
+        return `
+          <button
+            class="summary-card ${isAnswered ? "is-complete" : "is-pending"}"
+            type="button"
+            data-summary-index="${index}"
+          >
+            <span>${question.title}</span>
+            <strong>${isAnswered ? answerLabel : copy.profile.pendingAnswer}</strong>
+          </button>
+        `;
+      })
+      .join("")}
   `;
 
-  elements.questionContainer.querySelectorAll("[data-option-value]").forEach((button) => {
+  elements.currentSummary.querySelectorAll("[data-summary-index]").forEach((button) => {
     button.addEventListener("click", () => {
-      state.answers[question.id] = button.dataset.optionValue;
-      updateProfileCard();
-      renderQuestion();
-      if (isComplete()) {
-        startResultsLoading();
-      }
+      jumpToQuestion(Number(button.dataset.summaryIndex));
     });
   });
-
-  elements.prevButton.disabled = state.currentStep === 0;
-  elements.nextButton.disabled = !answer;
-  elements.nextButton.textContent = state.currentStep === questions.length - 1 ? "Ver resultado" : "Siguiente";
-  elements.impactNote.innerHTML =
-    question.id === "location"
-      ? `
-        <p class="mini-label">Qué cambia aquí</p>
-        <p>${question.impactNote}</p>
-        ${renderLocationMap(answer)}
-      `
-      : `
-        <p class="mini-label">Qué cambia aquí</p>
-        <p>${question.impactNote}</p>
-      `;
 }
 
 function updateProfileCard() {
+  const copy = getCopy();
   const locationLabel = getSelectedLabel("location");
   const cabinetsLabel = getSelectedLabel("cabinets");
   const receptionLabel = getSelectedLabel("reception");
   const digitalLabel = getSelectedLabel("digital");
   const protocolLabel = getSelectedLabel("protocol");
-  const advisorLabel = getSelectedLabel("advisor");
-
+  const currentVisitsLabel = getSelectedLabel("actualVisits");
+  const currentImplantsLabel = getSelectedLabel("actualImplants");
   const answeredCount = Object.keys(state.answers).length;
 
-  let headline = "Clínica aún sin definir";
-  let summary =
-    "Selecciona las variables clave para ver una lectura ejecutiva del caso.";
+  let headline = copy.profile.defaultHeadline;
+  let summary = copy.profile.defaultSummary;
 
-  if (answeredCount >= 3) {
-    headline = `${locationLabel !== "—" ? locationLabel : "Clínica"} · ${cabinetsLabel !== "—" ? cabinetsLabel : "estructura por definir"}`;
-    summary = `Caso con ${receptionLabel !== "—" ? receptionLabel.toLowerCase() : "recepción sin definir"}, presencia digital ${
-      digitalLabel !== "—" ? digitalLabel.toLowerCase() : "sin evaluar"
-    } y protocolo ${protocolLabel !== "—" ? protocolLabel.toLowerCase() : "no evaluado"}.`;
+  if (state.answers.location && state.answers.cabinets) {
+    headline = `${locationLabel !== "—" ? locationLabel : copy.profile.clinicFallback} · ${
+      cabinetsLabel !== "—" ? cabinetsLabel : copy.profile.structureFallback
+    }`;
+
+    summary = formatTemplate(copy.profile.summaryTemplate, {
+      reception: receptionLabel !== "—" ? receptionLabel.toLowerCase() : copy.profile.receptionFallback,
+      digital: digitalLabel !== "—" ? digitalLabel.toLowerCase() : copy.profile.digitalFallback,
+      protocol: protocolLabel !== "—" ? protocolLabel.toLowerCase() : copy.profile.protocolFallback,
+    });
+  } else if (answeredCount >= 2 && currentVisitsLabel !== "—" && currentImplantsLabel !== "—") {
+    summary = formatTemplate(copy.profile.baselineSummary, {
+      visits: currentVisitsLabel,
+      implants: currentImplantsLabel,
+    });
   }
 
   elements.profileHeadline.textContent = headline;
   elements.profileSummary.textContent = summary;
+  renderCurrentSummary();
+}
 
-  elements.currentSummary.innerHTML = `
-    <article>
-      <span>Entorno</span>
-      <strong>${locationLabel}</strong>
-    </article>
-    <article>
-      <span>Estructura</span>
-      <strong>${cabinetsLabel}</strong>
-    </article>
-    <article>
-      <span>Conversión</span>
-      <strong>${advisorLabel}</strong>
-    </article>
-    <article>
-      <span>Madurez digital</span>
-      <strong>${digitalLabel}</strong>
-    </article>
+function renderImpactNote(question) {
+  const copy = getCopy();
+  elements.impactNote.innerHTML = `
+    <p class="mini-label">${copy.questionUi.impactLabel}</p>
+    <p>${question.impactNote}</p>
   `;
+}
+
+function isQuestionAnswered(question) {
+  const answer = state.answers[question.id];
+
+  if (question.type === "number") {
+    return Number.isFinite(answer);
+  }
+
+  return Boolean(answer);
 }
 
 function renderQuestion() {
@@ -829,59 +1585,109 @@ function renderQuestion() {
     return;
   }
 
+  const copy = getCopy();
   const question = questions[state.currentStep];
   const answer = state.answers[question.id];
 
-  elements.stepLabel.textContent = `Paso ${state.currentStep + 1} de ${questions.length}`;
+  elements.stepLabel.textContent = formatTemplate(copy.loading.stepLabel, {
+    current: String(state.currentStep + 1),
+    total: String(questions.length),
+  });
   elements.stepCategory.textContent = question.category;
   elements.progressBar.style.width = `${((state.currentStep + 1) / questions.length) * 100}%`;
 
-  const optionsMarkup = question.options
-    .map(
-      (option) => `
-        <button class="option-card ${answer === option.value ? "selected" : ""}" type="button" data-option-value="${option.value}" aria-pressed="${answer === option.value}">
-          <span>
-            <strong>${option.label}</strong>
-            <span class="option-description">${option.description}</span>
-          </span>
-          <span class="option-score">${option.scoreLabel}</span>
-        </button>
-      `
-    )
-    .join("");
+  if (question.type === "number") {
+    const numericValue = Number.isFinite(answer) ? answer : question.defaultValue;
+    elements.questionContainer.innerHTML = `
+      <div class="question-category">${question.category}</div>
+      <h3 class="question-title">${question.title}</h3>
+      <p class="question-helper">${question.helper}</p>
+      <div class="number-question-card">
+        <label class="number-question-label" for="numericQuestionInput">${question.inputLabel}</label>
+        <div class="number-input-shell">
+          <input
+            id="numericQuestionInput"
+            class="number-question-input"
+            type="number"
+            min="${question.min}"
+            max="${question.max}"
+            step="${question.step}"
+            value="${numericValue}"
+            placeholder="${question.placeholder}"
+          />
+          ${question.suffix ? `<span class="number-question-suffix">${question.suffix}</span>` : ""}
+        </div>
+      </div>
+    `;
 
-  elements.questionContainer.innerHTML = `
-    <div class="question-category">${question.category}</div>
-    <h3 class="question-title">${question.title}</h3>
-    <p class="question-helper">${question.helper}</p>
-    <div class="options-grid">${optionsMarkup}</div>
-  `;
-
-  elements.questionContainer.querySelectorAll("[data-option-value]").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.answers[question.id] = button.dataset.optionValue;
-      updateProfileCard();
-      renderQuestion();
-      if (isComplete()) {
-        startResultsLoading();
+    const input = document.getElementById("numericQuestionInput");
+    const updateNumericAnswer = () => {
+      const parsed = Number(input.value);
+      state.answers[question.id] = Number.isFinite(parsed)
+        ? clamp(parsed, question.min, question.max)
+        : question.defaultValue;
+      if (Number(input.value) !== state.answers[question.id]) {
+        input.value = state.answers[question.id];
       }
+      updateProfileCard();
+      elements.nextButton.disabled = !isQuestionAnswered(question);
+    };
+
+    input.addEventListener("input", updateNumericAnswer);
+    input.addEventListener("change", updateNumericAnswer);
+    updateNumericAnswer();
+  } else {
+    const optionsMarkup = question.options
+      .map(
+        (option) => `
+          <button class="option-card ${answer === option.value ? "selected" : ""}" type="button" data-option-value="${option.value}" aria-pressed="${answer === option.value}">
+            <span>
+              <strong>${option.label}</strong>
+              <span class="option-description">${option.description}</span>
+            </span>
+            <span class="option-score">${option.scoreLabel}</span>
+          </button>
+        `
+      )
+      .join("");
+
+    elements.questionContainer.innerHTML = `
+      <div class="question-category">${question.category}</div>
+      <h3 class="question-title">${question.title}</h3>
+      <p class="question-helper">${question.helper}</p>
+      <div class="options-grid">${optionsMarkup}</div>
+    `;
+
+    elements.questionContainer.querySelectorAll("[data-option-value]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.answers[question.id] = button.dataset.optionValue;
+        updateProfileCard();
+        renderQuestion();
+        if (isComplete()) {
+          startResultsLoading();
+        }
+      });
     });
-  });
+  }
 
   elements.prevButton.disabled = state.currentStep === 0;
-  elements.nextButton.disabled = !answer;
-  elements.nextButton.textContent = state.currentStep === questions.length - 1 ? "Ver resultado" : "Siguiente";
-  elements.impactNote.innerHTML = `
-    <p class="mini-label">Que cambia aqui</p>
-    <p>${question.impactNote}</p>
-  `;
+  elements.nextButton.disabled = !isQuestionAnswered(question);
+  elements.prevButton.textContent = copy.buttons.previous;
+  elements.nextButton.textContent =
+    state.currentStep === questions.length - 1 ? copy.buttons.viewResults : copy.buttons.next;
+
+  renderImpactNote(question);
 }
 
 function renderLoadingState() {
+  const copy = getCopy();
   const currentQuestion = questions[state.currentStep];
 
-  elements.stepLabel.textContent = `Paso ${questions.length} de ${questions.length}`;
-  elements.stepCategory.textContent = "Calculando";
+  elements.stepLabel.textContent = formatTemplate(copy.loading.stepLabel, {
+    current: String(questions.length),
+    total: String(questions.length),
+  });
+  elements.stepCategory.textContent = copy.loading.category;
   elements.progressBar.style.width = "100%";
 
   elements.questionContainer.innerHTML = `
@@ -891,19 +1697,18 @@ function renderLoadingState() {
         <span class="loading-ring loading-ring-two"></span>
         <span class="loading-ring loading-ring-three"></span>
       </div>
-      <p class="mini-label">Procesando escenario</p>
-      <h3 class="loading-title">Calculando la proyección de la clínica</h3>
-      <p class="loading-helper">
-        Estamos cruzando captación, contacto, asistencia y cierre para estimar un escenario realista con una campaña tipo de Climadent.
-      </p>
+      <p class="mini-label">${copy.loading.miniLabel}</p>
+      <h3 class="loading-title">${copy.loading.title}</h3>
+      <p class="loading-helper">${copy.loading.helper}</p>
     </div>
   `;
 
   elements.prevButton.disabled = true;
   elements.nextButton.disabled = true;
-  elements.nextButton.textContent = "Calculando...";
+  elements.prevButton.textContent = copy.buttons.previous;
+  elements.nextButton.textContent = copy.buttons.calculating;
   elements.impactNote.innerHTML = `
-    <p class="mini-label">Lectura en curso</p>
+    <p class="mini-label">${copy.loading.impactLabel}</p>
     <p>${currentQuestion.impactNote}</p>
   `;
 }
@@ -920,25 +1725,14 @@ function startResultsLoading() {
   state.loadingTimer = setTimeout(() => {
     state.isCalculating = false;
     state.loadingTimer = null;
+    state.lastScenarioAnswers = { ...state.answers };
     renderQuestion();
-    renderResults();
+    renderResultsView(buildResultsData(state.lastScenarioAnswers));
   }, 2000);
 }
 
 function isComplete() {
-  return questions.every((question) => Boolean(state.answers[question.id]));
-}
-
-function getScenarioAnswers(mode = "current") {
-  if (mode === "current") {
-    return { ...state.answers };
-  }
-
-  const optimized = { ...state.answers };
-  Object.entries(optimizedTargets).forEach(([key, value]) => {
-    optimized[key] = value;
-  });
-  return optimized;
+  return questions.every((question) => isQuestionAnswered(question));
 }
 
 function calculateScenario(inputAnswers) {
@@ -953,6 +1747,7 @@ function calculateScenario(inputAnswers) {
   const tac = config.tac[inputAnswers.tac];
   const advisor = config.advisor[inputAnswers.advisor];
 
+  const averageTicket = Math.max(Number(inputAnswers.averageTicket) || baseMetrics.ticket, 0);
   const recommendedBudget = config.mediaBudget;
   const cpl = round(location.cpl, 1);
   const rawLeads = recommendedBudget / cpl;
@@ -999,11 +1794,11 @@ function calculateScenario(inputAnswers) {
   const visits = Math.min(appointments * attendanceRate, cabinets.capacityVisits);
   const closedPatients = visits * closeRate;
   const implants = closedPatients * cabinets.implantsPerPatient;
-  const revenue = closedPatients * baseMetrics.ticket;
+  const revenue = closedPatients * averageTicket;
   const totalCampaignCost = recommendedBudget + config.serviceFee;
+  const roi = recommendedBudget > 0 ? revenue / recommendedBudget : 0;
   const cac = closedPatients > 0 ? totalCampaignCost / closedPatients : 0;
   const costPerVisit = visits > 0 ? totalCampaignCost / visits : 0;
-  const roi = totalCampaignCost > 0 ? revenue / totalCampaignCost : 0;
 
   return {
     recommendedBudget,
@@ -1020,37 +1815,73 @@ function calculateScenario(inputAnswers) {
     implants,
     revenue,
     totalCampaignCost,
+    roi,
     cac,
     costPerVisit,
-    roi,
     competition: location.competition,
-    scaleLabel: cabinets.scaleLabel,
+  };
+}
+
+function calculateActualScenario(inputAnswers) {
+  const projectedScenario = calculateScenario(inputAnswers);
+  const currentVisits = Math.max(Number(inputAnswers.actualVisits) || 0, 0);
+  const currentImplants = Math.max(Number(inputAnswers.actualImplants) || 0, 0);
+  const averageTicket = Math.max(Number(inputAnswers.averageTicket) || baseMetrics.ticket, 0);
+  const implantsPerPatient = config.cabinets[inputAnswers.cabinets].implantsPerPatient;
+  const closedPatients = currentImplants / implantsPerPatient;
+  const closeRate = currentVisits > 0 ? closedPatients / currentVisits : 0;
+  const appointments = projectedScenario.attendanceRate > 0 ? currentVisits / projectedScenario.attendanceRate : 0;
+  const contactLeads =
+    projectedScenario.appointmentRate > 0 ? appointments / projectedScenario.appointmentRate : 0;
+  const leads = projectedScenario.contactRate > 0 ? contactLeads / projectedScenario.contactRate : 0;
+  const revenue = closedPatients * averageTicket;
+  const cpl = leads > 0 ? projectedScenario.recommendedBudget / leads : 0;
+  const roi = projectedScenario.recommendedBudget > 0 ? revenue / projectedScenario.recommendedBudget : 0;
+
+  return {
+    ...projectedScenario,
+    cpl,
+    leads,
+    contactLeads,
+    appointments,
+    visits: currentVisits,
+    closeRate,
+    closedPatients,
+    implants: currentImplants,
+    revenue,
+    roi,
+    costPerVisit: currentVisits > 0 ? projectedScenario.totalCampaignCost / currentVisits : 0,
+    cac: closedPatients > 0 ? projectedScenario.totalCampaignCost / closedPatients : 0,
+  };
+}
+
+function getOptimizedAnswers(baseAnswers) {
+  return {
+    ...baseAnswers,
+    ...optimizedTargets,
   };
 }
 
 function getPhaseDiagnostics(currentScenario, optimizedScenario) {
+  const labels = getCopy().diagnostics;
   const deltas = [
     {
-      key: "contactRate",
-      label: "contacto",
+      label: labels.contact,
       current: currentScenario.contactRate,
       optimized: optimizedScenario.contactRate,
     },
     {
-      key: "appointmentRate",
-      label: "agendado",
+      label: labels.appointments,
       current: currentScenario.appointmentRate,
       optimized: optimizedScenario.appointmentRate,
     },
     {
-      key: "attendanceRate",
-      label: "asistencia",
+      label: labels.attendance,
       current: currentScenario.attendanceRate,
       optimized: optimizedScenario.attendanceRate,
     },
     {
-      key: "closeRate",
-      label: "cierre",
+      label: labels.close,
       current: currentScenario.closeRate,
       optimized: optimizedScenario.closeRate,
     },
@@ -1065,101 +1896,215 @@ function getPhaseDiagnostics(currentScenario, optimizedScenario) {
   return { weakest, biggestLift };
 }
 
-function buildInsights(currentScenario, optimizedScenario) {
+function calculateOptimizationScore(currentScenario, optimizedScenario) {
+  const weightedRatio =
+    (currentScenario.contactRate / optimizedScenario.contactRate) * 0.28 +
+    (currentScenario.appointmentRate / optimizedScenario.appointmentRate) * 0.16 +
+    (currentScenario.attendanceRate / optimizedScenario.attendanceRate) * 0.18 +
+    (currentScenario.closeRate / optimizedScenario.closeRate) * 0.38;
+
+  return clamp(round(5 + weightedRatio * 5, 1), 5, 10);
+}
+
+function buildInsights(currentScenario, optimizedScenario, sourceAnswers) {
+  const copy = getCopy().insights;
   const diagnostics = getPhaseDiagnostics(currentScenario, optimizedScenario);
-  const currentAnswers = state.answers;
-
-  const title = `La mayor fuga está en ${diagnostics.weakest.label}`;
-  const body = `Con la configuración actual, la clínica está desaprovechando una parte relevante del valor generado antes de llegar a tratamiento. El mayor salto potencial aparece al reforzar ${diagnostics.biggestLift.label}.`;
-
   const insights = [];
+  const recommendationCards = [];
+  const score = calculateOptimizationScore(currentScenario, optimizedScenario);
 
-  if (currentAnswers.reception === "multitask" || currentAnswers.speed === "late") {
-    insights.push(
-      "Recepción y velocidad de contacto apuntan a una pérdida temprana de oportunidades antes incluso del agendado."
-    );
+  if (sourceAnswers.reception === "multitask" || sourceAnswers.speed === "late") {
+    insights.push(copy.earlyLeak);
+    recommendationCards.push({
+      title: copy.cards.contactTitle,
+      body: copy.cards.contactBody,
+    });
   }
 
-  if (currentAnswers.protocol !== "structured" || currentAnswers.advisor !== "yes") {
-    insights.push(
-      "La clínica parece tener más recorrido en cierre que en volumen: profesionalizar primera visita y cierre puede multiplicar mejor el tráfico actual."
-    );
+  if (sourceAnswers.protocol !== "structured" || sourceAnswers.advisor !== "yes") {
+    insights.push(copy.closeOpportunity);
+    recommendationCards.push({
+      title: copy.cards.closeTitle,
+      body: copy.cards.closeBody,
+    });
   }
 
-  if (currentAnswers.digital === "weak") {
-    insights.push(
-      "La autoridad digital débil añade fricción tanto al contacto como a la asistencia; la clínica no convierte con toda la confianza que podría."
-    );
+  if (sourceAnswers.digital === "weak") {
+    insights.push(copy.weakDigital);
+    recommendationCards.push({
+      title: copy.cards.trustTitle,
+      body: copy.cards.trustBody,
+    });
   }
 
-  if (currentAnswers.tac === "no" || currentAnswers.financing === "none") {
-    insights.push(
-      "El diagnóstico y la financiación están limitando la aceptación del tratamiento, especialmente en implantología de ticket alto."
-    );
+  if (sourceAnswers.tac === "external" || sourceAnswers.financing === "none") {
+    insights.push(copy.tacFinance);
+    recommendationCards.push({
+      title: copy.cards.financeTitle,
+      body: copy.cards.financeBody,
+    });
   }
 
   if (insights.length < 3) {
-    insights.push(
-      "La estructura general es razonable, pero todavía existe margen claro para traducir mejor la demanda en visitas realizadas y cierres."
-    );
+    insights.push(copy.generic);
+    recommendationCards.push({
+      title: copy.cards.operationsTitle,
+      body: copy.cards.operationsBody,
+    });
   }
 
   const incrementalImplants = optimizedScenario.implants - currentScenario.implants;
-  insights.push(
-    `En escenario optimizado, el partner podría activar aproximadamente ${formatNumber(incrementalImplants)} implantes adicionales al mes con la misma base clínica.`
-  );
+  const extraOptimizedImplants = optimizedScenario.implants - currentScenario.implants;
+  const extraOptimizedRevenue = optimizedScenario.revenue - currentScenario.revenue;
+  insights.push(formatTemplate(copy.implantsLift, { value: formatNumber(incrementalImplants) }));
+  recommendationCards.push({
+    title: copy.cards.impactTitle,
+    body: `${copy.cards.impactBody} ${formatTemplate(copy.cards.impactTail, {
+      implants: formatNumber(extraOptimizedImplants),
+      revenue: formatCurrency(extraOptimizedRevenue),
+    })}`,
+  });
 
-  return { title, body, insights: insights.slice(0, 4) };
+  return {
+    score,
+    title: formatTemplate(copy.title, { phase: diagnostics.weakest.label }),
+    body: formatTemplate(copy.body, { lift: diagnostics.biggestLift.label }),
+    insights: insights.slice(0, 4),
+    cards: recommendationCards.slice(0, 4),
+  };
 }
 
-function renderResults() {
-  if (!isComplete()) {
-    return;
-  }
+function buildResultsData(sourceAnswers) {
+  const currentScenario = calculateActualScenario(sourceAnswers);
+  const realisticScenario = calculateScenario(sourceAnswers);
+  const optimizedScenario = calculateScenario(getOptimizedAnswers(sourceAnswers));
+  const insights = buildInsights(realisticScenario, optimizedScenario, sourceAnswers);
+  const combinedScenario = {
+    visits: currentScenario.visits + realisticScenario.visits,
+    closedPatients: currentScenario.closedPatients + realisticScenario.closedPatients,
+    implants: currentScenario.implants + realisticScenario.implants,
+    revenue: currentScenario.revenue + realisticScenario.revenue,
+  };
 
-  const currentScenario = calculateScenario(getScenarioAnswers("current"));
-  const optimizedScenario = calculateScenario(getScenarioAnswers("optimized"));
-  const insights = buildInsights(currentScenario, optimizedScenario);
+  return { currentScenario, realisticScenario, optimizedScenario, combinedScenario, insights };
+}
+
+function renderImpactMatrix(sourceAnswers) {
+  const columns = [
+    {
+      title: getCopy().questions.location.category,
+      body: getQuestion("location").impactNote,
+      items: [getLabelFromAnswers("location", sourceAnswers)],
+    },
+    {
+      title: getCopy().questions.reception.category,
+      body: getQuestion("reception").impactNote,
+      items: [getLabelFromAnswers("reception", sourceAnswers), getLabelFromAnswers("speed", sourceAnswers)],
+    },
+    {
+      title: getCopy().questions.visitPrice.category,
+      body: getQuestion("visitPrice").impactNote,
+      items: [getLabelFromAnswers("visitPrice", sourceAnswers), getLabelFromAnswers("digital", sourceAnswers)],
+    },
+    {
+      title: getCopy().questions.protocol.category,
+      body: getQuestion("protocol").impactNote,
+      items: [getLabelFromAnswers("protocol", sourceAnswers), getLabelFromAnswers("advisor", sourceAnswers)],
+    },
+    {
+      title: getCopy().questions.financing.category,
+      body: getQuestion("financing").impactNote,
+      items: [getLabelFromAnswers("financing", sourceAnswers), getLabelFromAnswers("tac", sourceAnswers)],
+    },
+  ];
+
+  elements.impactMatrix.innerHTML = columns
+    .map(
+      (column) => `
+        <div class="impact-column">
+          <h4>${column.title}</h4>
+          <p>${column.body}</p>
+          <div class="impact-list">
+            ${column.items
+              .filter((item) => item && item !== "—")
+              .map(
+                (item) => `
+                  <div class="impact-item">
+                    <strong>${item}</strong>
+                  </div>
+                `
+              )
+              .join("")}
+          </div>
+        </div>
+      `
+    )
+    .join("");
+}
+
+function renderResultsView(data) {
+  const copy = getCopy().results;
+  const { currentScenario, realisticScenario, optimizedScenario, combinedScenario, insights } = data;
 
   elements.resultsSection.classList.remove("hidden");
 
   elements.kpiCards.innerHTML = `
     <article class="kpi-card">
-      <p class="mini-label">Pacientes extra cerrados al mes</p>
-      <strong>${formatNumber(currentScenario.closedPatients)}</strong>
-      <span>Proyección mensual realista de pacientes extra captados y cerrados con una campaña tipo de Climadent.</span>
+      <p class="mini-label">${copy.kpis.patientsTitle}</p>
+      <div class="kpi-card-value">
+        <strong>${formatNumber(realisticScenario.closedPatients)}</strong>
+      </div>
+      <div class="kpi-card-content">
+        <span>${copy.kpis.patientsBody}</span>
+        <p class="kpi-card-trail">${formatNumber(currentScenario.closedPatients)} → ${formatNumber(realisticScenario.closedPatients)}</p>
+      </div>
     </article>
     <article class="kpi-card">
-      <p class="mini-label">Implantes extra proyectados al mes</p>
-      <strong>${formatNumber(currentScenario.implants)}</strong>
-      <span>Volumen mensual realista de implantes extra asociado a ese escenario de campaña y conversión.</span>
+      <p class="mini-label">${copy.kpis.implantsTitle}</p>
+      <div class="kpi-card-value">
+        <strong>${formatNumber(realisticScenario.implants)}</strong>
+      </div>
+      <div class="kpi-card-content">
+        <span>${copy.kpis.implantsBody}</span>
+        <p class="kpi-card-trail">${formatNumber(currentScenario.implants)} → ${formatNumber(realisticScenario.implants)}</p>
+      </div>
     </article>
     <article class="kpi-card">
-      <p class="mini-label">Ingresos extra proyectados al mes</p>
-      <strong>${formatCurrency(currentScenario.revenue)}</strong>
-      <span>Producción mensual extra estimada de forma realista con ticket medio constante.</span>
+      <p class="mini-label">${copy.kpis.revenueTitle}</p>
+      <div class="kpi-card-value">
+        <strong>${formatCurrency(realisticScenario.revenue)}</strong>
+      </div>
+      <div class="kpi-card-content">
+        <span>${copy.kpis.revenueBody}</span>
+        <p class="kpi-card-trail">${formatCurrency(currentScenario.revenue)} → ${formatCurrency(realisticScenario.revenue)}</p>
+      </div>
     </article>
     <article class="kpi-card">
-      <p class="mini-label">Coste por primera visita al mes</p>
-      <strong>${formatCurrency(currentScenario.costPerVisit)}</strong>
-      <span>Coste medio estimado por cada primera visita generada en un mes de campaña tipo.</span>
+      <p class="mini-label">${copy.kpis.costTitle}</p>
+      <div class="kpi-card-value">
+        <strong>${round(realisticScenario.roi, 1)}x</strong>
+      </div>
+      <div class="kpi-card-content">
+        <span>${copy.kpis.costBody}</span>
+        <p class="kpi-card-trail">${formatCurrency(realisticScenario.recommendedBudget)} → ${formatCurrency(realisticScenario.revenue)}</p>
+      </div>
     </article>
   `;
 
   const funnelMax = Math.max(
-    currentScenario.leads,
-    currentScenario.contactLeads,
-    currentScenario.appointments,
-    currentScenario.visits,
-    currentScenario.closedPatients
+    realisticScenario.leads,
+    realisticScenario.contactLeads,
+    realisticScenario.appointments,
+    realisticScenario.visits,
+    realisticScenario.closedPatients
   );
 
   const funnelRows = [
-    { label: "Leads estimados", value: currentScenario.leads, note: `${formatCurrency(currentScenario.cpl)} CPL` },
-    { label: "Leads contactados", value: currentScenario.contactLeads, note: formatPercent(currentScenario.contactRate) },
-    { label: "Citas agendadas", value: currentScenario.appointments, note: formatPercent(currentScenario.appointmentRate) },
-    { label: "Primeras visitas", value: currentScenario.visits, note: formatPercent(currentScenario.attendanceRate) },
-    { label: "Pacientes cerrados", value: currentScenario.closedPatients, note: formatPercent(currentScenario.closeRate) },
+    { label: copy.funnel.leads, value: realisticScenario.leads, note: `${formatCurrency(realisticScenario.cpl)} CPL` },
+    { label: copy.funnel.contacted, value: realisticScenario.contactLeads, note: formatPercent(realisticScenario.contactRate) },
+    { label: copy.funnel.appointments, value: realisticScenario.appointments, note: formatPercent(realisticScenario.appointmentRate) },
+    { label: copy.funnel.visits, value: realisticScenario.visits, note: formatPercent(realisticScenario.attendanceRate) },
+    { label: copy.funnel.closed, value: realisticScenario.closedPatients, note: formatPercent(realisticScenario.closeRate) },
   ];
 
   elements.funnelChart.innerHTML = funnelRows
@@ -1179,79 +2124,16 @@ function renderResults() {
     .join("");
 
   const comparisonItems = [
-    {
-      label: "Leads estimados",
-      current: currentScenario.leads,
-      optimized: optimizedScenario.leads,
-      formatter: formatNumber,
-    },
-    {
-      label: "% contacto",
-      current: currentScenario.contactRate,
-      optimized: optimizedScenario.contactRate,
-      formatter: formatPercent,
-      scaleMax: 1,
-    },
-    {
-      label: "Ingresos clínicos",
-      current: currentScenario.appointmentRate,
-      optimized: optimizedScenario.appointmentRate,
-      formatter: formatPercent,
-      scaleMax: 1,
-    },
-    {
-      label: "ROI captación",
-      current: currentScenario.roi,
-      optimized: optimizedScenario.roi,
-      formatter: (value) => `${round(value, 1)}x`,
-    },
+    { label: copy.funnel.visits, current: currentScenario.visits, optimized: combinedScenario.visits, formatter: formatNumber },
+    { label: copy.table.patients, current: currentScenario.closedPatients, optimized: combinedScenario.closedPatients, formatter: formatNumber },
+    { label: copy.table.implants, current: currentScenario.implants, optimized: combinedScenario.implants, formatter: formatNumber },
+    { label: copy.table.revenue, current: currentScenario.revenue, optimized: combinedScenario.revenue, formatter: formatCurrency },
   ];
 
-  const comparisonKpiItems = [
-    {
-      label: "Leads estimados",
-      current: currentScenario.leads,
-      optimized: optimizedScenario.leads,
-      formatter: formatNumber,
-    },
-    {
-      label: "% contacto",
-      current: currentScenario.contactRate,
-      optimized: optimizedScenario.contactRate,
-      formatter: formatPercent,
-      scaleMax: 1,
-    },
-    {
-      label: "% cita / contacto",
-      current: currentScenario.appointmentRate,
-      optimized: optimizedScenario.appointmentRate,
-      formatter: formatPercent,
-      scaleMax: 1,
-    },
-    {
-      label: "% asistencia",
-      current: currentScenario.attendanceRate,
-      optimized: optimizedScenario.attendanceRate,
-      formatter: formatPercent,
-      scaleMax: 0.55,
-    },
-    {
-      label: "% cierre / visita",
-      current: currentScenario.closeRate,
-      optimized: optimizedScenario.closeRate,
-      formatter: formatPercent,
-      scaleMax: 0.45,
-    },
-  ];
-
-  const comparisonScales = comparisonKpiItems.map((item) => ({
-    ...item,
-    rowMax: item.scaleMax || Math.max(item.current, item.optimized, 1),
-  }));
-
-  elements.comparisonChart.innerHTML = comparisonScales
-    .map(
-      (item) => `
+  elements.comparisonChart.innerHTML = comparisonItems
+    .map((item) => {
+      const rowMax = item.scaleMax || Math.max(item.current, item.optimized, 1);
+      return `
         <div class="comparison-row">
           <div class="chart-labels">
             <span>${item.label}</span>
@@ -1259,78 +2141,28 @@ function renderResults() {
           </div>
           <div class="comparison-shell">
             <div class="comparison-bar-shell">
-              <div class="comparison-bar-current" style="width:${(item.current / item.rowMax) * 100}%"></div>
+              <div class="comparison-bar-current" style="width:${(item.current / rowMax) * 100}%"></div>
             </div>
             <div class="comparison-bar-shell">
-              <div class="comparison-bar-optimized" style="width:${(item.optimized / item.rowMax) * 100}%"></div>
+              <div class="comparison-bar-optimized" style="width:${(item.optimized / rowMax) * 100}%"></div>
             </div>
           </div>
         </div>
-      `
-    )
+      `;
+    })
     .join("");
 
+  const competitionLabel = copy.competition[currentScenario.competition];
   const tableRows = [
-    {
-      label: "Inversión recomendada",
-      current: formatCurrency(currentScenario.recommendedBudget),
-      optimized: formatCurrency(optimizedScenario.recommendedBudget),
-      note: "Se ajusta al tamaño operativo estimado por número de gabinetes.",
-    },
-    {
-      label: "CPL estimado",
-      current: formatCurrency(currentScenario.cpl),
-      optimized: formatCurrency(optimizedScenario.cpl),
-      note: `Presión competitiva ${currentScenario.competition.toLowerCase()} según entorno.`,
-    },
-    {
-      label: "% contacto",
-      current: formatPercent(currentScenario.contactRate),
-      optimized: formatPercent(optimizedScenario.contactRate),
-      note: "Impactado por velocidad de contacto, recepción y autoridad digital.",
-    },
-    {
-      label: "% cita/contacto",
-      current: formatPercent(currentScenario.appointmentRate),
-      optimized: formatPercent(optimizedScenario.appointmentRate),
-      note: "La fricción de primera visita y el equipo de recepción mueven esta fase.",
-    },
-    {
-      label: "% asistencia",
-      current: formatPercent(currentScenario.attendanceRate),
-      optimized: formatPercent(optimizedScenario.attendanceRate),
-      note: "La marca y la facilidad de entrada sostienen la asistencia real.",
-    },
-    {
-      label: "% cierre/visita",
-      current: formatPercent(currentScenario.closeRate),
-      optimized: formatPercent(optimizedScenario.closeRate),
-      note: "Diagnóstico, financiación, asesor y protocolo explican la diferencia.",
-    },
-    {
-      label: "Pacientes cerrados",
-      current: formatNumber(currentScenario.closedPatients),
-      optimized: `<span class="value-positive">${formatNumber(optimizedScenario.closedPatients)}</span>`,
-      note: "Conversión clínica mensual estimada en implantología.",
-    },
-    {
-      label: "Implantes estimados",
-      current: formatNumber(currentScenario.implants),
-      optimized: `<span class="value-positive">${formatNumber(optimizedScenario.implants)}</span>`,
-      note: "KPI directo de valor para Sweden & Martina.",
-    },
-    {
-      label: "Ingresos clínica",
-      current: formatCurrency(currentScenario.revenue),
-      optimized: `<span class="value-positive">${formatCurrency(optimizedScenario.revenue)}</span>`,
-      note: "Producción económica estimada sobre ticket medio constante.",
-    },
-    {
-      label: "CAC por paciente",
-      current: formatCurrency(currentScenario.cac),
-      optimized: formatCurrency(optimizedScenario.cac),
-      note: "Coste de adquisición estimado según el rendimiento del embudo.",
-    },
+    { label: copy.table.budget, expected: formatCurrency(realisticScenario.recommendedBudget), note: copy.table.budgetNote },
+    { label: copy.table.cpl, expected: formatCurrency(realisticScenario.cpl), note: formatTemplate(copy.table.cplNote, { competition: competitionLabel }) },
+    { label: copy.table.contact, expected: formatPercent(realisticScenario.contactRate), note: copy.table.contactNote },
+    { label: copy.table.appointment, expected: formatPercent(realisticScenario.appointmentRate), note: copy.table.appointmentNote },
+    { label: copy.table.attendance, expected: formatPercent(realisticScenario.attendanceRate), note: copy.table.attendanceNote },
+    { label: copy.table.close, expected: formatPercent(realisticScenario.closeRate), note: copy.table.closeNote },
+    { label: copy.table.patients, expected: `<span class="value-positive">${formatNumber(realisticScenario.closedPatients)}</span>`, note: copy.table.patientsNote },
+    { label: copy.table.implants, expected: `<span class="value-positive">${formatNumber(realisticScenario.implants)}</span>`, note: copy.table.implantsNote },
+    { label: copy.table.revenue, expected: `<span class="value-positive">${formatCurrency(realisticScenario.revenue)}</span>`, note: copy.table.revenueNote },
   ];
 
   elements.resultsTable.innerHTML = tableRows
@@ -1338,8 +2170,7 @@ function renderResults() {
       (row) => `
         <tr>
           <td><strong>${row.label}</strong></td>
-          <td>${row.current}</td>
-          <td>${row.optimized}</td>
+          <td>${row.expected}</td>
           <td>${row.note}</td>
         </tr>
       `
@@ -1348,10 +2179,32 @@ function renderResults() {
 
   elements.primaryInsightTitle.textContent = insights.title;
   elements.primaryInsightBody.textContent = insights.body;
-  elements.insightList.innerHTML = insights.insights
-    .map((item) => `<div class="insight-pill">${item}</div>`)
-    .join("");
+  elements.insightList.innerHTML = `
+    <div class="insight-score-block">
+      <div class="insight-score-orbit" style="--score:${insights.score / 10}">
+        <div class="insight-score-core">
+          <strong>${insights.score.toFixed(1)}</strong>
+          <span>/10</span>
+        </div>
+      </div>
+      <div class="insight-score-copy">
+        <p class="mini-label">${getCopy().insights.scoreLabel}</p>
+        <p>${getCopy().insights.scoreCaption}</p>
+      </div>
+    </div>
+    ${insights.cards
+      .map(
+        (item) => `
+          <div class="insight-pill insight-recommendation">
+            <strong>${item.title}</strong>
+            <span>${item.body}</span>
+          </div>
+        `
+      )
+      .join("")}
+  `;
 
+  renderImpactMatrix(state.lastScenarioAnswers || {});
   elements.resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
   resetSimulation({ preserveResults: true, scrollToSimulator: false });
 }
@@ -1362,7 +2215,12 @@ function goToNext() {
   }
 
   const currentQuestion = questions[state.currentStep];
-  if (!state.answers[currentQuestion.id]) {
+  if (currentQuestion.type === "number" && !Number.isFinite(state.answers[currentQuestion.id])) {
+    state.answers[currentQuestion.id] = currentQuestion.defaultValue;
+    updateProfileCard();
+  }
+
+  if (!isQuestionAnswered(currentQuestion)) {
     return;
   }
 
@@ -1384,6 +2242,16 @@ function goToPrevious() {
   renderQuestion();
 }
 
+function jumpToQuestion(stepIndex) {
+  if (state.isCalculating) {
+    return;
+  }
+
+  state.currentStep = clamp(stepIndex, 0, questions.length - 1);
+  renderQuestion();
+  document.getElementById("simulador").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 function resetSimulation(options = {}) {
   const { preserveResults = false, scrollToSimulator = true } = options;
 
@@ -1394,6 +2262,7 @@ function resetSimulation(options = {}) {
   state.answers = {};
   if (!preserveResults) {
     elements.resultsSection.classList.add("hidden");
+    state.lastScenarioAnswers = null;
   }
   updateProfileCard();
   renderQuestion();
@@ -1402,13 +2271,45 @@ function resetSimulation(options = {}) {
   }
 }
 
+function setLanguage(language) {
+  if (!i18n[language]) {
+    return;
+  }
+
+  state.language = language;
+  localStorage.setItem("calculatorLanguage", language);
+  syncQuestionsWithLanguage();
+  applyStaticTranslations();
+  updateLanguageButtons();
+  updateProfileCard();
+
+  if (state.isCalculating) {
+    renderLoadingState();
+  } else {
+    renderQuestion();
+  }
+
+  if (!elements.resultsSection.classList.contains("hidden") && state.lastScenarioAnswers) {
+    renderResultsView(buildResultsData(state.lastScenarioAnswers));
+  }
+}
+
 elements.nextButton.addEventListener("click", goToNext);
 elements.prevButton.addEventListener("click", goToPrevious);
-elements.resetButton.addEventListener("click", resetSimulation);
-elements.restartScenarioLink?.addEventListener("click", (event) => {
+elements.resetButton.addEventListener("click", () => resetSimulation());
+elements.restartScenarioLink.addEventListener("click", (event) => {
   event.preventDefault();
   resetSimulation();
 });
 
+elements.languageButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setLanguage(button.dataset.lang);
+  });
+});
+
+syncQuestionsWithLanguage();
+applyStaticTranslations();
+updateLanguageButtons();
 renderQuestion();
 updateProfileCard();
