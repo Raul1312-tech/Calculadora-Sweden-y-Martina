@@ -2009,12 +2009,16 @@ function renderImpactMatrix(sourceAnswers) {
     {
       title: getCopy().questions.protocol.category,
       body: getQuestion("protocol").impactNote,
-      items: [getLabelFromAnswers("protocol", sourceAnswers), getLabelFromAnswers("advisor", sourceAnswers)],
+      items: [
+        getLabelFromAnswers("protocol", sourceAnswers),
+        getLabelFromAnswers("advisor", sourceAnswers),
+        getLabelFromAnswers("tac", sourceAnswers),
+      ],
     },
     {
       title: getCopy().questions.financing.category,
       body: getQuestion("financing").impactNote,
-      items: [getLabelFromAnswers("financing", sourceAnswers), getLabelFromAnswers("tac", sourceAnswers)],
+      items: [getLabelFromAnswers("financing", sourceAnswers)],
     },
   ];
 
