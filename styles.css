@@ -1774,16 +1774,16 @@ td strong {
 
   .language-switcher {
     width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
     padding: 8px;
   }
 
   .language-button {
-    flex: 1 1 0;
-    min-width: 0;
+    width: 100%;
     padding-inline: 10px;
     font-size: 0.8rem;
+    justify-content: center;
   }
 
   .top-nav {
@@ -1839,9 +1839,43 @@ td strong {
   }
 
   .progress-copy,
-  .panel-header,
-  .chart-labels {
+  .panel-header {
     text-align: center;
+  }
+
+  .closing-actions {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .closing-actions .primary-button,
+  .closing-actions .secondary-button {
+    align-self: center;
+  }
+
+  .kpi-card-trail {
+    display: none;
+  }
+
+  .chart-labels {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 8px 18px;
+    text-align: left;
+    padding-right: 8px;
+  }
+
+  .chart-labels span {
+    line-height: 1.35;
+  }
+
+  .chart-labels strong {
+    text-align: right;
+    line-height: 1.35;
+    justify-self: end;
+    white-space: nowrap;
   }
 
   .hero h1 {
@@ -2075,6 +2109,16 @@ td strong {
 
   .brand-collab-logo {
     height: 16px;
+  }
+
+  .chart-labels {
+    gap: 6px 14px;
+    font-size: 0.84rem;
+    padding-right: 10px;
+  }
+
+  .chart-labels strong {
+    font-size: 0.84rem;
   }
 
   .hero-metrics strong,

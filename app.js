@@ -1370,6 +1370,10 @@ function formatCurrency(value) {
   }).format(value);
 }
 
+function isMobileViewport() {
+  return window.matchMedia("(max-width: 720px)").matches;
+}
+
 function syncQuestionsWithLanguage() {
   const localizedQuestions = i18n[state.language].static.questions;
 
@@ -1662,6 +1666,18 @@ function renderQuestion() {
       button.addEventListener("click", () => {
         state.answers[question.id] = button.dataset.optionValue;
         updateProfileCard();
+
+        if (isMobileViewport()) {
+          if (state.currentStep === questions.length - 1 || isComplete()) {
+            startResultsLoading();
+            return;
+          }
+
+          state.currentStep += 1;
+          renderQuestion();
+          return;
+        }
+
         renderQuestion();
         if (isComplete()) {
           startResultsLoading();
