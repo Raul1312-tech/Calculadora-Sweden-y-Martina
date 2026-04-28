@@ -2279,7 +2279,8 @@ function resetSimulation(options = {}) {
   state.isCalculating = false;
   state.loadingTimer = null;
   state.currentStep = 0;
-  state.answers = {};
+  state.answers =
+    preserveResults && state.lastScenarioAnswers ? { ...state.lastScenarioAnswers } : {};
   if (!preserveResults) {
     elements.resultsSection.classList.add("hidden");
     state.lastScenarioAnswers = null;
