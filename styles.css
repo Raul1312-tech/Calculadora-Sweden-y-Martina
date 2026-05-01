@@ -1634,6 +1634,225 @@ td strong {
   gap: 12px;
 }
 
+body.business-page {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(7, 10, 18, 0.72), transparent 26%),
+    radial-gradient(circle at 84% 0%, rgba(138, 53, 255, 0.24), transparent 28%),
+    radial-gradient(circle at 76% 30%, rgba(74, 112, 255, 0.18), transparent 22%),
+    linear-gradient(180deg, #08090f 0%, #111321 36%, #0e1019 68%, #090b12 100%);
+}
+
+body.business-page::before {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.12;
+}
+
+.business-page .aura-one {
+  background: radial-gradient(circle, rgba(8, 10, 16, 0.08), transparent 68%);
+}
+
+.business-page .aura-two {
+  background: radial-gradient(circle, rgba(137, 57, 255, 0.24), transparent 70%);
+}
+
+.business-page .aura-three {
+  background: radial-gradient(circle, rgba(71, 100, 255, 0.18), transparent 72%);
+}
+
+.business-page .orbit {
+  border-color: rgba(161, 112, 255, 0.16);
+  opacity: 0.42;
+}
+
+.business-page .page-shell {
+  width: min(1240px, calc(100% - 48px));
+}
+
+.business-header {
+  margin-bottom: 22px;
+  background:
+    linear-gradient(180deg, rgba(16, 15, 30, 0.94), rgba(17, 18, 33, 0.9)),
+    radial-gradient(circle at top right, rgba(126, 79, 255, 0.16), transparent 38%);
+  border-color: rgba(156, 104, 255, 0.18);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.business-logo {
+  width: clamp(180px, 19vw, 270px);
+  filter: drop-shadow(0 0 24px rgba(132, 60, 255, 0.16)) saturate(1.03);
+}
+
+.business-hero {
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+}
+
+.business-page .hero-copy {
+  background:
+    linear-gradient(145deg, rgba(8, 10, 18, 0.98), rgba(10, 12, 20, 0.96)),
+    radial-gradient(circle at top right, rgba(122, 70, 255, 0.08), transparent 28%);
+}
+
+.business-page .hero-copy::after {
+  background: linear-gradient(120deg, transparent 0%, rgba(128, 72, 255, 0.05) 48%, transparent 100%);
+}
+
+.business-copy h1 {
+  max-width: 13.5ch;
+  background: linear-gradient(90deg, #c9f8ff 0%, #7fe0ff 28%, #89a4ff 58%, #d69cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.business-actions {
+  margin-top: 26px;
+}
+
+.business-panel {
+  display: flex;
+  align-items: stretch;
+  background:
+    linear-gradient(180deg, rgba(10, 11, 18, 0.98), rgba(11, 12, 20, 0.96)),
+    radial-gradient(circle at top right, rgba(130, 70, 255, 0.16), transparent 32%);
+}
+
+.business-stat-grid,
+.business-card-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.business-stat-grid {
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+
+.business-stat-card,
+.business-info-card,
+.business-proof-board {
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(170, 117, 255, 0.16);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background:
+    linear-gradient(180deg, rgba(17, 18, 32, 0.96), rgba(13, 16, 28, 0.94)),
+    radial-gradient(circle at top right, rgba(130, 70, 255, 0.14), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(33, 208, 255, 0.1), transparent 28%);
+}
+
+.business-stat-card,
+.business-info-card {
+  padding: 24px;
+}
+
+.business-stat-card strong {
+  display: block;
+  margin-top: 12px;
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  letter-spacing: -0.05em;
+  line-height: 0.96;
+  color: #f6f5ff;
+  text-shadow: 0 0 28px rgba(132, 71, 255, 0.14);
+}
+
+.business-stat-card span,
+.business-info-card p {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.business-section {
+  margin-top: 80px;
+}
+
+.business-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.business-info-card h3 {
+  margin: 10px 0 0;
+  font-size: 1.36rem;
+  letter-spacing: -0.035em;
+}
+
+.business-proof-board {
+  padding: 10px 12px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 248, 252, 0.98));
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.84);
+}
+
+.business-proof-board img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius-xl) - 20px);
+}
+
+.business-closing {
+  margin-top: 0;
+  background:
+    linear-gradient(180deg, rgba(17, 18, 33, 0.98), rgba(12, 14, 26, 0.96)),
+    radial-gradient(circle at right center, rgba(129, 63, 255, 0.14), transparent 28%);
+  border-color: rgba(166, 108, 255, 0.18);
+}
+
+.business-page .brand-subtitle,
+.business-page .ghost-link,
+.business-page .mini-label,
+.business-page .eyebrow {
+  color: rgba(209, 219, 255, 0.72);
+}
+
+.business-page .eyebrow {
+  letter-spacing: 0.22em;
+}
+
+.business-page .hero-text,
+.business-page .section-heading p,
+.business-page .closing-copy p {
+  color: rgba(223, 231, 250, 0.78);
+}
+
+.business-page .primary-button {
+  background: linear-gradient(135deg, #24d0ff 0%, #5b7cff 52%, #9144ff 100%);
+  box-shadow: 0 18px 38px rgba(110, 84, 255, 0.34);
+}
+
+.business-page .secondary-button,
+.business-page .ghost-link {
+  border-color: rgba(171, 129, 255, 0.24);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.business-page .primary-button:hover,
+.business-page .secondary-button:hover,
+.business-page .ghost-link:hover {
+  border-color: rgba(178, 142, 255, 0.34);
+  box-shadow: 0 14px 34px rgba(119, 77, 255, 0.18);
+}
+
+.business-page .section-heading h2,
+.business-page .closing-copy h3,
+.business-page .business-info-card h3 {
+  color: #f5f5ff;
+}
+
 @media (max-width: 1100px) {
   .hero,
   .simulator-layout,
@@ -1666,6 +1885,15 @@ td strong {
 
   .results-hero {
     align-items: stretch;
+  }
+
+  .business-hero,
+  .business-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .business-copy h1 {
+    max-width: none;
   }
 }
 
@@ -1917,6 +2145,14 @@ td strong {
   .hero-panel-grid,
   .pillars {
     display: none;
+  }
+
+  .business-section {
+    margin-top: 56px;
+  }
+
+  .business-proof-board {
+    padding: 12px;
   }
 
   .hero-product-card {
