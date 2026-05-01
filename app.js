@@ -1,4 +1,4 @@
-const i18n = {
+﻿const i18n = {
   es: {
     locale: "es-ES",
     metaTitle: "Sweden & Martina | Calculadora de Potencial de Clínica",
@@ -153,12 +153,12 @@ const i18n = {
         kpis: {
           patientsTitle: "Pacientes de implantes extra cerrados al mes",
           patientsBody:
-            "Proyección mensual realista de pacientes extra captados y cerrados con una campaña tipo de Climadent.",
+            "Proyección mensual de pacientes extra captados y cerrados con una campaña tipo de Climadent.",
           implantsTitle: "Implantes extra proyectados al mes",
           implantsBody:
-            "Volumen mensual realista de implantes extra asociado a ese escenario de campaña y conversión.",
+            "Volumen mensual de implantes extra colocados por la clínica",
           revenueTitle: "Facturación implantológica extra al mes",
-          revenueBody: "Producción mensual extra estimada de forma realista con ticket medio constante.",
+          revenueBody: "Facturación mensual extra conseguida por la clínica con una campaña de un mes de implantes",
           costTitle: "ROI de campaña de implantes",
           costBody: "Retorno estimado de una campaña de implantes con una inversión mensual de 450 € en Meta.",
         },
@@ -359,7 +359,7 @@ const i18n = {
             "Queremos entender el punto de partida real de la clínica antes de estimar el salto que podría dar con una campaña activa.",
           impactNote:
             "Este dato nos sirve para construir el escenario actual y compararlo con el crecimiento realista que podría conseguir la clínica.",
-          inputLabel: "Media de primeras visitas de implantes aproximada",
+          inputLabel: "Media mensual de primeras visitas aproximada",
           placeholder: "Ejemplo: 15",
         },
         actualImplants: {
@@ -539,12 +539,12 @@ const i18n = {
         kpis: {
           patientsTitle: "Extra implant patients closed per month",
           patientsBody:
-            "Realistic monthly projection of extra patients captured and closed with a typical Climadent campaign.",
+            "Monthly projection of extra patients acquired and closed with a typical Climadent campaign.",
           implantsTitle: "Extra implants projected per month",
           implantsBody:
-            "Realistic monthly implant volume linked to that campaign and conversion scenario.",
+            "Monthly volume of extra implants placed by the clinic",
           revenueTitle: "Extra implant revenue per month",
-          revenueBody: "Realistic monthly extra production estimated with a constant average ticket.",
+          revenueBody: "Extra monthly revenue achieved by the clinic with a one-month implant campaign",
           costTitle: "Implant campaign ROI",
           costBody: "Estimated return from an implant campaign with a monthly Meta investment of €450.",
         },
@@ -730,7 +730,7 @@ const i18n = {
             "We want to understand the clinic's real starting point before estimating the uplift it could achieve with an active campaign.",
           impactNote:
             "This lets us build the current scenario and compare it with the realistic growth the clinic could achieve.",
-          inputLabel: "Implant first visits",
+          inputLabel: "Approximate monthly average of first visits",
           placeholder: "Example: 15",
         },
         actualImplants: {
@@ -910,12 +910,12 @@ const i18n = {
         kpis: {
           patientsTitle: "Pazienti implantari extra chiusi al mese",
           patientsBody:
-            "Proiezione mensile realistica di pazienti extra acquisiti e chiusi con una campagna tipo Climadent.",
+            "Proiezione mensile di pazienti extra acquisiti e chiusi con una campagna tipo di Climadent.",
           implantsTitle: "Impianti extra previsti al mese",
           implantsBody:
-            "Volume mensile realistico di impianti extra associato a questo scenario di campagna e conversione.",
+            "Volume mensile di impianti extra posizionati dalla clinica",
           revenueTitle: "Fatturato implantare extra al mese",
-          revenueBody: "Produzione extra mensile stimata in modo realistico con ticket medio costante.",
+          revenueBody: "Fatturato mensile extra ottenuto dalla clinica con una campagna implantare di un mese",
           costTitle: "ROI campagna implantare",
           costBody: "Rendimento stimato di una campagna implantare con un investimento mensile di 450 € su Meta.",
         },
@@ -1100,7 +1100,7 @@ const i18n = {
             "Vogliamo capire il punto di partenza reale della clinica prima di stimare la crescita che potrebbe ottenere con una campagna attiva.",
           impactNote:
             "Questo dato ci permette di costruire lo scenario attuale e confrontarlo con la crescita realistica che la clinica potrebbe raggiungere.",
-          inputLabel: "Prime visite implantari",
+          inputLabel: "Media mensile approssimativa delle prime visite",
           placeholder: "Esempio: 15",
         },
         actualImplants: {
@@ -2076,7 +2076,6 @@ function renderResultsView(data) {
       </div>
       <div class="kpi-card-content">
         <span>${copy.kpis.patientsBody}</span>
-        <p class="kpi-card-trail">${formatNumber(currentScenario.closedPatients)} → ${formatNumber(realisticScenario.closedPatients)}</p>
       </div>
     </article>
     <article class="kpi-card">
@@ -2086,7 +2085,6 @@ function renderResultsView(data) {
       </div>
       <div class="kpi-card-content">
         <span>${copy.kpis.implantsBody}</span>
-        <p class="kpi-card-trail">${formatNumber(currentScenario.implants)} → ${formatNumber(realisticScenario.implants)}</p>
       </div>
     </article>
     <article class="kpi-card">
@@ -2096,7 +2094,6 @@ function renderResultsView(data) {
       </div>
       <div class="kpi-card-content">
         <span>${copy.kpis.revenueBody}</span>
-        <p class="kpi-card-trail">${formatCurrency(currentScenario.revenue)} → ${formatCurrency(realisticScenario.revenue)}</p>
       </div>
     </article>
     <article class="kpi-card">
@@ -2106,7 +2103,6 @@ function renderResultsView(data) {
       </div>
       <div class="kpi-card-content">
         <span>${copy.kpis.costBody}</span>
-        <p class="kpi-card-trail">${formatCurrency(realisticScenario.recommendedBudget)} → ${formatCurrency(realisticScenario.revenue)}</p>
       </div>
     </article>
   `;
@@ -2334,3 +2330,4 @@ applyStaticTranslations();
 updateLanguageButtons();
 renderQuestion();
 updateProfileCard();
+
