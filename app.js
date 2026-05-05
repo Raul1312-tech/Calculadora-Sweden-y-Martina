@@ -16,7 +16,6 @@
       heroSignatureLabel: "Motor desarrollado por",
       heroPrimaryCtaDesktop: "Jugar con escenarios",
       heroPrimaryCtaMobile: "Calcular potencial de cualquier clínica dental con Climadent",
-      heroSecondaryCta: "Ver metodología",
       heroMetricOne: "variables de negocio dental",
       heroMetricTwo: "fases del embudo interpretables",
       heroMetricThree: "escenarios comparados: actual y con campaña",
@@ -402,7 +401,6 @@
       heroSignatureLabel: "Engine developed by",
       heroPrimaryCtaDesktop: "Play with scenarios",
       heroPrimaryCtaMobile: "Calculate the potential of any dental clinic with Climadent",
-      heroSecondaryCta: "View methodology",
       heroMetricOne: "dental business variables",
       heroMetricTwo: "interpretable funnel stages",
       heroMetricThree: "compared scenarios: current and with campaign",
@@ -773,7 +771,6 @@
       heroSignatureLabel: "Motore sviluppato da",
       heroPrimaryCtaDesktop: "Esplora gli scenari",
       heroPrimaryCtaMobile: "Calcola il potenziale di qualsiasi clinica dentale con Climadent",
-      heroSecondaryCta: "Vedi metodologia",
       heroMetricOne: "variabili del business dentale",
       heroMetricTwo: "fasi del funnel interpretabili",
       heroMetricThree: "scenari confrontati: attuale e con campagna",
@@ -1264,7 +1261,6 @@ const elements = {
   heroSignatureLabel: document.getElementById("heroSignatureLabel"),
   heroPrimaryCtaDesktop: document.getElementById("heroPrimaryCtaDesktop"),
   heroPrimaryCtaMobile: document.getElementById("heroPrimaryCtaMobile"),
-  heroSecondaryCta: document.getElementById("heroSecondaryCta"),
   heroMetricOne: document.getElementById("heroMetricOne"),
   heroMetricTwo: document.getElementById("heroMetricTwo"),
   heroMetricThree: document.getElementById("heroMetricThree"),
@@ -1327,7 +1323,6 @@ const elements = {
   closingTitle: document.getElementById("closingTitle"),
   closingBody: document.getElementById("closingBody"),
   restartScenarioLink: document.getElementById("restartScenarioLink"),
-  reviewMethodologyLink: document.getElementById("reviewMethodologyLink"),
   tableHeaders: Array.from(document.querySelectorAll("thead th")),
   languageButtons: Array.from(document.querySelectorAll("[data-lang]")),
 };
@@ -1443,7 +1438,6 @@ function applyStaticTranslations() {
   elements.heroSignatureLabel.textContent = copy.heroSignatureLabel;
   elements.heroPrimaryCtaDesktop.textContent = copy.heroPrimaryCtaDesktop;
   elements.heroPrimaryCtaMobile.textContent = copy.heroPrimaryCtaMobile;
-  elements.heroSecondaryCta.textContent = copy.heroSecondaryCta;
   elements.heroMetricOne.textContent = copy.heroMetricOne;
   elements.heroMetricTwo.textContent = copy.heroMetricTwo;
   elements.heroMetricThree.textContent = copy.heroMetricThree;
@@ -1487,7 +1481,6 @@ function applyStaticTranslations() {
   elements.closingTitle.textContent = copy.closingTitle;
   elements.closingBody.textContent = copy.closingBody;
   elements.restartScenarioLink.textContent = copy.buttons.restartScenario;
-  elements.reviewMethodologyLink.textContent = copy.reviewMethodologyLink;
   copy.tableHeaders.forEach((text, index) => {
     if (elements.tableHeaders[index]) {
       elements.tableHeaders[index].textContent = text;
